@@ -1,2 +1,2 @@
 // Pages
-export { LoginPage } from "@/features/auth/pages/LoginPage"
+export { LoginPage } from "./pages/LoginPage"

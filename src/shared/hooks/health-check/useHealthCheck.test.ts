@@ -18,7 +18,7 @@ describe(useHealthCheck.name, () => {
       data: {
         status: "UP",
       },
-    })
+    } as any)
 
     const { result } = renderHook(() => useHealthCheck(), {
       wrapper: createQueryWrapper(),

@@ -16,35 +16,35 @@ O projeto tem como objetivo centralizar as informações do negócio em uma plat
 
 ### Vitrine pública
 
-* Visualização dos produtos em destaque
-* Consulta do catálogo de docinhos
-* Consulta dos detalhes de um produto
-* Visualização de preços e porções disponíveis
-* Identificação de produtos temporariamente indisponíveis
-* Solicitação de encomenda pelo WhatsApp
+- Visualização dos produtos em destaque
+- Consulta do catálogo de docinhos
+- Consulta dos detalhes de um produto
+- Visualização de preços e porções disponíveis
+- Identificação de produtos temporariamente indisponíveis
+- Solicitação de encomenda pelo WhatsApp
 
 ### Área administrativa
 
-* Autenticação da administradora
-* Cadastro de produtos
-* Listagem de produtos
-* Consulta detalhada de produtos
-* Edição de produtos
-* Ativação e inativação de produtos
-* Exclusão de produtos
-* Gerenciamento de produtos em destaque
+- Autenticação da administradora
+- Cadastro de produtos
+- Listagem de produtos
+- Consulta detalhada de produtos
+- Edição de produtos
+- Ativação e inativação de produtos
+- Exclusão de produtos
+- Gerenciamento de produtos em destaque
 
 <br>
 
 ## Tecnologias utilizadas
 
-* **Frontend:** React 19, TypeScript e Vite
-* **Interface:** Tailwind CSS e shadcn/ui
-* **Roteamento:** React Router
-* **Requisições e estado assíncrono:** Axios e TanStack Query
-* **Testes:** Vitest e React Testing Library
-* **Qualidade e padronização:** ESLint e Prettier
-* **Ícones:** Lucide React
+- **Frontend:** React 19, TypeScript e Vite
+- **Interface:** Tailwind CSS e shadcn/ui
+- **Roteamento:** React Router
+- **Requisições e estado assíncrono:** Axios e TanStack Query
+- **Testes:** Vitest e React Testing Library
+- **Qualidade e padronização:** ESLint e Prettier
+- **Ícones:** Lucide React
 
 <br>
 
@@ -54,9 +54,9 @@ O projeto tem como objetivo centralizar as informações do negócio em uma plat
 
 Antes de começar, você precisará ter instalado:
 
-* **Git**
-* **Node.js**
-* **npm**
+- **Git**
+- **Node.js**
+- **npm**
 
 ### 1. Clone o repositório
 
@@ -154,10 +154,10 @@ npm run verify
 
 O comando executa:
 
-* Verificação do código com ESLint
-* Verificação da formatação com Prettier
-* Testes com análise de cobertura
-* Build da aplicação
+- Verificação do código com ESLint
+- Verificação da formatação com Prettier
+- Testes com análise de cobertura
+- Build da aplicação
 
 <br>
 

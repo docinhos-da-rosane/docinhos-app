@@ -26,7 +26,7 @@ export default defineConfig({
         "src/app/router/**",
         "src/app/providers/**",
         "src/main.tsx",
-        "tests/setup.ts",
+        "src/test/setup.ts",
       ],
       thresholds: {
         lines: 80,

@@ -6,13 +6,13 @@
 @import "@fontsource-variable/outfit";
 
 @theme inline {
-  /* Typography */
+  /* Tipografia */
   --font-heading: "Fraunces Variable", Georgia, serif;
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Outfit Variable", system-ui, sans-serif;
   --font-body: "Outfit Variable", system-ui, sans-serif;
 
-  /* Shadcn semantic colors */
+  /* Cores base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -22,6 +22,7 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
+  /* Cores principais */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -41,7 +42,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Project semantic colors */
+  /* Cores semânticas */
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
@@ -51,7 +52,7 @@
   --color-whatsapp: var(--whatsapp);
   --color-surface: var(--surface);
 
-  /* Primary scale — Terracota */
+  /* Paleta Terracota */
   --color-primary-50: #fdf6f0;
   --color-primary-100: #faeade;
   --color-primary-200: #f4d0b4;
@@ -64,7 +65,7 @@
   --color-primary-900: #652817;
   --color-primary-950: #3a1509;
 
-  /* Secondary scale — Cacau */
+  /* Paleta Cacau */
   --color-cocoa-50: #f5f0ec;
   --color-cocoa-100: #e8ddd6;
   --color-cocoa-200: #cdb9ae;
@@ -77,7 +78,7 @@
   --color-cocoa-900: #1e1512;
   --color-cocoa-950: #110c0a;
 
-  /* Neutral scale — Creme / Bege */
+  /* Paleta Creme */
   --color-cream-50: #fefcfa;
   --color-cream-100: #fdf8f3;
   --color-cream-200: #faf0e6;
@@ -90,7 +91,7 @@
   --color-cream-900: #7a5438;
   --color-cream-950: #432d1b;
 
-  /* Gold scale */
+  /* Paleta Dourado */
   --color-gold-50: #fffdf0;
   --color-gold-100: #fefadb;
   --color-gold-200: #fdf4b2;
@@ -103,7 +104,7 @@
   --color-gold-900: #724f13;
   --color-gold-950: #422a07;
 
-  /* Sidebar */
+  /* Barra lateral */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -113,21 +114,21 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Charts */
+  /* Gráficos */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* Radius */
+  /* Bordas arredondadas */
   --radius-sm: 0.375rem; /* 6px */
   --radius-md: 0.625rem; /* 10px */
   --radius-lg: 1rem; /* 16px */
   --radius-xl: 1.5rem; /* 24px */
   --radius-full: 9999px;
 
-  /* Shadows */
+  /* Sombras */
   --shadow-sm: 0 1px 3px rgba(44, 24, 16, 0.06);
   --shadow-md: 0 4px 12px rgba(44, 24, 16, 0.08);
   --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.1);
@@ -135,14 +136,9 @@
 }
 
 :root {
-  /*
-     * Base
-     * ========================================
-     */
-
+  /* Base */
   --background: #fdf8f3;
   --foreground: #1e1512;
-
   --surface: #faf3ee;
 
   --card: #ffffff;
@@ -151,27 +147,16 @@
   --popover: #ffffff;
   --popover-foreground: #1e1512;
 
-  /*
-     * Brand
-     * ========================================
-     */
-
-  /* Terracota */
+  /* Cores da marca */
   --primary: #d96830;
   --primary-foreground: #ffffff;
-
   --primary-hover: #c05322;
   --primary-active: #9e3f1a;
 
-  /* Cacau */
   --secondary: #6d5246;
   --secondary-foreground: #ffffff;
 
-  /*
-     * Neutral / UI
-     * ========================================
-     */
-
+  /* Interface */
   --muted: #faf3ee;
   --muted-foreground: #8a6f61;
 
@@ -180,15 +165,10 @@
 
   --border: #edd4bb;
   --border-subtle: #f5e4d3;
-
   --input: #edd4bb;
   --ring: #d96830;
 
-  /*
-     * Semantic
-     * ========================================
-     */
-
+  /* Estados */
   --success: #3a9e6a;
   --warning: #c97d10;
   --danger: #d03c3c;
@@ -202,11 +182,7 @@
 
   --whatsapp: #25d366;
 
-  /*
-     * Sidebar / Admin
-     * ========================================
-     */
-
+  /* Área administrativa */
   --sidebar: #2d211e;
   --sidebar-foreground: #ffffff;
 
@@ -219,11 +195,7 @@
   --sidebar-border: #56403a;
   --sidebar-ring: #d96830;
 
-  /*
-     * Charts
-     * ========================================
-     */
-
+  /* Gráficos */
   --chart-1: #d96830;
   --chart-2: #6d5246;
   --chart-3: #efc520;

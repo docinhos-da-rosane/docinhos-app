@@ -24,6 +24,7 @@ export default defineConfig({
         "src/shared/components/ui/**",
         "src/shared/lib/utils.ts",
         "src/app/router/**",
+        "src/app/providers/**",
         "src/main.tsx",
         "tests/setup.ts",
       ],

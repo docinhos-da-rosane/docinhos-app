@@ -1,7 +1,12 @@
+import { HealthCheck } from "@/shared/components"
+
 export function HomePage() {
   return (
-    <section>
+    <>
       <p className="text-red-500">Página Principal</p>
-    </section>
+      <div className="m-10 flex justify-center">
+        <HealthCheck />
+      </div>
+    </>
   )
 }

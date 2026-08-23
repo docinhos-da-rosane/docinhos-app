@@ -1,7 +1,9 @@
+import { AuthLogin } from "../components/AuthLogin"
+
 export function LoginPage() {
   return (
-    <section>
-      <p className="text-red-500">Página de login</p>
-    </section>
+    <main className="flex min-h-dvh items-center justify-center">
+      <AuthLogin />
+    </main>
   )
 }

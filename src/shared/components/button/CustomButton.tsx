@@ -27,7 +27,7 @@ export function CustomButton({
     <button
       type={type}
       className={cn(
-        "flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors",
+        "flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
         variants[variant],
         className
       )}

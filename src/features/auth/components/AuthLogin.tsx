@@ -1,6 +1,7 @@
-import { CustomButton, Painel } from "@/shared/components"
 import { AuthIcon } from "./AuthIcon"
 import { Link } from "react-router-dom"
+import { AuthForm } from "./AuthForm"
+import { Painel } from "@/shared/components"
 
 export function AuthLogin() {
   return (
@@ -19,36 +20,9 @@ export function AuthLogin() {
           </p>
         </div>
       </header>
-      <form className="my-8">
-        <div className="mb-4 flex flex-col gap-2">
-          <label htmlFor="email" className="text-sm font-semibold">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Digite seu email"
-            className="w-full rounded-md border-2 border-border p-3 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
-          />
-        </div>
-        <div className="mb-4 flex flex-col gap-2">
-          <label htmlFor="password" className="text-sm font-semibold">
-            Senha
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Digite sua senha"
-            className="w-full rounded-md border-2 border-border p-3 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
-          />
-        </div>
-        <CustomButton type="submit" variant="primary" className="mt-10">
-          Entrar
-        </CustomButton>
-      </form>
-
+      <div className="my-8">
+        <AuthForm />
+      </div>
       <footer className="flex flex-col items-center justify-center gap-2">
         <Link
           to="/"

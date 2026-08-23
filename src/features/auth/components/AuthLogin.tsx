@@ -5,7 +5,7 @@ import { Painel } from "@/shared/components"
 
 export function AuthLogin() {
   return (
-    <Painel className="md:px-12 md:py-10">
+    <Painel className="flex flex-col gap-8 sm:max-w-lg">
       <header className="flex flex-col items-center justify-center gap-5">
         <AuthIcon />
         <div className="flex flex-col items-center justify-center gap-1 text-center">
@@ -20,7 +20,7 @@ export function AuthLogin() {
           </p>
         </div>
       </header>
-      <div className="my-8">
+      <div>
         <AuthForm />
       </div>
       <footer className="flex flex-col items-center justify-center gap-2">

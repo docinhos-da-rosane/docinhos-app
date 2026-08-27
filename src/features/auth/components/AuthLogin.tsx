@@ -2,8 +2,16 @@ import { AuthIcon } from "./AuthIcon"
 import { Link } from "react-router-dom"
 import { AuthForm } from "./AuthForm"
 import { Painel } from "@/shared/components"
+import type { AuthFormData } from "../schemas/auth.schema"
+import { useLoginViewModel } from "../view-model/useLoginViewModel"
 
 export function AuthLogin() {
+  const { entrar, carregando } = useLoginViewModel()
+
+  function onSubmit(dados: AuthFormData) {
+    entrar(dados)
+  }
+
   return (
     <Painel className="flex flex-col gap-8 sm:max-w-lg">
       <header className="flex flex-col items-center justify-center gap-5">
@@ -21,7 +29,7 @@ export function AuthLogin() {
         </div>
       </header>
       <div>
-        <AuthForm />
+        <AuthForm onSubmit={onSubmit} carregando={carregando} />
       </div>
       <footer className="flex flex-col items-center justify-center gap-2">
         <Link

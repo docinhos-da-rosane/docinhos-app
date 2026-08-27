@@ -47,6 +47,12 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-info: var(--info);
+
+  --color-success-light: var(--success-light);
+  --color-warning-light: var(--warning-light);
+  --color-danger-light: var(--danger-light);
+  --color-info-light: var(--info-light);
+
   --color-disabled: var(--disabled);
   --color-disabled-background: var(--disabled-background);
   --color-whatsapp: var(--whatsapp);
@@ -173,6 +179,11 @@
   --warning: #c97d10;
   --danger: #d03c3c;
   --info: #3b6fbf;
+
+  --success-light: #ecfaf3;
+  --warning-light: #fff8e8;
+  --danger-light: #fef2f2;
+  --info-light: #eff4fd;
 
   --destructive: #d03c3c;
   --destructive-foreground: #ffffff;

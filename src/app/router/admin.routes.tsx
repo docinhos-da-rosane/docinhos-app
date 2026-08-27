@@ -2,9 +2,10 @@ import { Navigate, type RouteObject } from "react-router"
 import { AdminLayout } from "../layouts/AdminLayout"
 import { LoginPage } from "@/features/auth"
 import { ProdutoListaPage } from "@/features/produtos"
+import { ROTAS } from "@/shared/constants/routes"
 
 export const adminRoutes: RouteObject = {
-  path: "/admin",
+  path: ROTAS.ADMIN.ROOT,
 
   children: [
     {
@@ -12,7 +13,7 @@ export const adminRoutes: RouteObject = {
       element: <Navigate to="login" replace />,
     },
     {
-      path: "login",
+      path: ROTAS.ADMIN.LOGIN,
       Component: LoginPage,
     },
 
@@ -21,7 +22,7 @@ export const adminRoutes: RouteObject = {
 
       children: [
         {
-          path: "produtos",
+          path: ROTAS.ADMIN.PRODUTOS,
           Component: ProdutoListaPage,
         },
       ],

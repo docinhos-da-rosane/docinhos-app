@@ -7,17 +7,18 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CustomButton, FormInput } from "@/shared/components"
 
-export function AuthForm() {
+interface AuthFormProps {
+  onSubmit: (data: AuthFormData) => void
+  carregando: boolean
+}
+
+export function AuthForm({ onSubmit, carregando }: AuthFormProps) {
   const methods = useForm<AuthFormData>({
     resolver: zodResolver(authSchema),
     mode: "onTouched",
     reValidateMode: "onChange",
     defaultValues: authValoresPadrao,
   })
-
-  function onSubmit(data: AuthFormData) {
-    console.log(data)
-  }
 
   return (
     <FormProvider {...methods}>
@@ -42,9 +43,10 @@ export function AuthForm() {
             methods.formState.isSubmitting || !methods.formState.isValid
           }
           variant="primary"
+          loading={carregando}
           className="mt-10"
         >
-          Entrar
+          {carregando ? "Entrando..." : "Entrar"}
         </CustomButton>
       </form>
     </FormProvider>

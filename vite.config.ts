@@ -21,8 +21,10 @@ export default defineConfig({
       reporter: ["text", "html"],
       include: ["src/**/*.{ts,tsx}"],
       exclude: [
+        "src/**/models/**",
+        "src/**/schemas/**",
         "src/shared/components/ui/**",
-        "src/shared/lib/utils.ts",
+        "src/shared/lib/**",
         "src/app/router/**",
         "src/app/providers/**",
         "src/main.tsx",

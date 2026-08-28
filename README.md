@@ -42,6 +42,7 @@ O projeto tem como objetivo centralizar as informações do negócio em uma plat
 - **Interface:** Tailwind CSS e shadcn/ui
 - **Roteamento:** React Router
 - **Requisições e estado assíncrono:** Axios e TanStack Query
+- **Formulários e validação:** React Hook Form e Zod
 - **Testes:** Vitest e React Testing Library
 - **Qualidade e padronização:** ESLint e Prettier
 - **Ícones:** Lucide React
@@ -116,7 +117,7 @@ coverage/index.html
 
 Abra o arquivo `index.html` no navegador para visualizar os detalhes da cobertura.
 
-> O projeto estabelece uma cobertura mínima de **80% das linhas de código**.
+> O projeto estabelece uma cobertura mínima de **80% das declarações do código**.
 
 <br>
 

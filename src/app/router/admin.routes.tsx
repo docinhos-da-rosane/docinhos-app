@@ -1,8 +1,9 @@
 import { Navigate, type RouteObject } from "react-router"
 import { AdminLayout } from "../layouts/AdminLayout"
-import { LoginPage } from "@/features/auth"
 import { ProdutoListaPage } from "@/features/produtos"
 import { ROTAS } from "@/shared/constants/routes"
+import { LoginPage, RotaProtegida } from "@/features/auth"
+import { estaAutenticado } from "@/shared/services/tokenService"
 
 export const adminRoutes: RouteObject = {
   path: ROTAS.ADMIN.ROOT,
@@ -10,20 +11,30 @@ export const adminRoutes: RouteObject = {
   children: [
     {
       index: true,
-      element: <Navigate to="login" replace />,
+      element: (
+        <Navigate
+          to={estaAutenticado() ? ROTAS.ADMIN.PRODUTOS : ROTAS.ADMIN.LOGIN}
+          replace
+        />
+      ),
     },
     {
       path: ROTAS.ADMIN.LOGIN,
       Component: LoginPage,
     },
-
     {
-      Component: AdminLayout,
+      Component: RotaProtegida,
 
       children: [
         {
-          path: ROTAS.ADMIN.PRODUTOS,
-          Component: ProdutoListaPage,
+          Component: AdminLayout,
+
+          children: [
+            {
+              path: ROTAS.ADMIN.PRODUTOS,
+              Component: ProdutoListaPage,
+            },
+          ],
         },
       ],
     },

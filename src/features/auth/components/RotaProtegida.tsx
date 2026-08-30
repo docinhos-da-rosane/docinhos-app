@@ -1,3 +1,4 @@
+import { SessaoWatcher } from "@/shared/components"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 import { estaAutenticado } from "@/shared/services/tokenService"
 import { Navigate, Outlet } from "react-router-dom"
@@ -7,5 +8,10 @@ export function RotaProtegida() {
     return <Navigate to={ROTAS_COMPLETAS.ADMIN.LOGIN} replace />
   }
 
-  return <Outlet />
+  return (
+    <>
+      <SessaoWatcher />
+      <Outlet />
+    </>
+  )
 }

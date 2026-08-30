@@ -1,9 +1,8 @@
 import axios from "axios"
-import { toast } from "sonner"
 import { extrairCodigoErro } from "../errors/errorService"
 import { CodeError } from "../errors/error.enum"
-import { ROTAS_COMPLETAS } from "../constants/routes"
-import { obterToken, removerToken } from "@/shared/services/tokenService"
+import { obterToken } from "@/shared/services/tokenService"
+import { limpaSessaoENotifica } from "../services/sessaoService"
 
 export const BASE_URL: string =
   import.meta.env.VITE_API_URL ?? "http://localhost:8080"
@@ -31,9 +30,7 @@ api.interceptors.response.use(
     const codigoErro = extrairCodigoErro(error)
 
     if (codigoErro === CodeError.CREDENCIAIS_EXPIRADAS) {
-      removerToken()
-      toast.warning("Sua sessão expirou. Entre novamente.")
-      window.location.href = ROTAS_COMPLETAS.ADMIN.LOGIN
+      limpaSessaoENotifica()
     }
 
     return Promise.reject(error)

@@ -1,8 +1,12 @@
 import { render, screen } from "@testing-library/react"
 import { createMemoryRouter, RouterProvider } from "react-router"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 import { AdminLayout } from "./AdminLayout"
+
+vi.mock("@/shared/components/layout/header/AdminNavBar", () => ({
+  AdminNavBar: () => <h1>Docinhos da Rosane</h1>,
+}))
 
 describe(AdminLayout.name, () => {
   it("deve renderizar o layout administrativo e o conteúdo da rota filha", () => {
@@ -22,7 +26,7 @@ describe(AdminLayout.name, () => {
     render(<RouterProvider router={router} />)
 
     expect(
-      screen.getByRole("heading", { name: "Layout administrativo" })
+      screen.getByRole("heading", { name: "Docinhos da Rosane" })
     ).toBeInTheDocument()
 
     expect(screen.getByText("Conteúdo administrativo")).toBeInTheDocument()

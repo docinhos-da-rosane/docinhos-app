@@ -11,7 +11,7 @@ export function AdminNavBar() {
     <header className="flex justify-center border-b bg-white p-4">
       <div className="flex w-full items-center justify-between gap-2 lg:max-w-7xl">
         <div className="flex items-center gap-3">
-          <Link to={ROTAS_COMPLETAS.ADMIN.ROOT}>
+          <Link to={ROTAS_COMPLETAS.ADMIN.PRODUTOS}>
             <AdminIcon size={22} />
           </Link>
           <div>

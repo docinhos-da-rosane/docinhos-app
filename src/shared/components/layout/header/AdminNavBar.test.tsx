@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
 import { AdminNavBar } from "./AdminNavBar"
+import { MemoryRouter } from "react-router-dom"
 
 const mocks = vi.hoisted(() => ({
   sair: vi.fn(),
@@ -20,7 +21,11 @@ describe(AdminNavBar.name, () => {
   })
 
   it("deve renderizar o cabeçalho quando for exibido", () => {
-    render(<AdminNavBar />)
+    render(
+      <MemoryRouter>
+        <AdminNavBar />
+      </MemoryRouter>
+    )
 
     expect(screen.getByText("Docinhos da")).toBeInTheDocument()
     expect(screen.getByText("Rosane")).toBeInTheDocument()
@@ -31,7 +36,11 @@ describe(AdminNavBar.name, () => {
   it("deve chamar sair quando o botão for clicado", async () => {
     const user = userEvent.setup()
 
-    render(<AdminNavBar />)
+    render(
+      <MemoryRouter>
+        <AdminNavBar />
+      </MemoryRouter>
+    )
 
     await user.click(screen.getByRole("button", { name: "Sair" }))
 

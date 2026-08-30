@@ -1,10 +1,10 @@
+import { AdminNavBar } from "@/shared/components"
 import { Outlet } from "react-router"
 
 export function AdminLayout() {
   return (
     <>
-      {/* Header - Admin */}
-      <h1>Layout administrativo</h1>
+      <AdminNavBar />
       <main>
         <Outlet />
       </main>

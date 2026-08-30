@@ -2,7 +2,8 @@ import { cn } from "@/shared/lib/utils"
 import { LoaderCircle } from "lucide-react"
 import type { ButtonHTMLAttributes, ReactNode } from "react"
 
-type CustomButtonVariant = "primary" | "secondary" | "info" | "danger"
+type CustomButtonVariant =
+  "primary" | "secondary" | "info" | "danger" | "outline-secondary"
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: CustomButtonVariant
@@ -15,6 +16,8 @@ const variants: Record<CustomButtonVariant, string> = {
   secondary: "bg-secondary text-white hover:bg-secondary/90",
   info: "bg-info text-white hover:bg-info/90",
   danger: "bg-danger text-white hover:bg-danger/90",
+  "outline-secondary":
+    "border border-secondary bg-transparent text-secondary hover:border-secondary/80 hover:text-secondary/80",
 }
 
 export function CustomButton({

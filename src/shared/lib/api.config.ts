@@ -32,7 +32,7 @@ api.interceptors.response.use(
 
     if (codigoErro === CodeError.CREDENCIAIS_EXPIRADAS) {
       removerToken()
-      toast.error("Sua sessão expirou. Entre novamente.")
+      toast.warning("Sua sessão expirou. Entre novamente.")
       window.location.href = ROTAS_COMPLETAS.ADMIN.LOGIN
     }
 

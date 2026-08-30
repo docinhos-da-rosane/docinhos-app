@@ -32,7 +32,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         unstyled: true,
         classNames: {
           toast:
-            "flex items-center gap-4 py-5 px-6 rounded-lg border-3 bg-card text-text-primary shadow-md",
+            "flex items-center gap-4 py-5 px-6 rounded-lg border-3 bg-card text-text-primary shadow-md sm:min-w-md",
           success: "border-success bg-success-light text-success",
           error: "border-danger bg-danger-light text-danger",
           warning: "border-warning bg-warning-light text-warning",

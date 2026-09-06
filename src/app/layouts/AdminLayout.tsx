@@ -5,7 +5,7 @@ export function AdminLayout() {
   return (
     <>
       <AdminNavBar />
-      <main>
+      <main className="min-h-screen">
         <Outlet />
       </main>
     </>

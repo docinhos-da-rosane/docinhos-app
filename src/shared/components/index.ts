@@ -5,6 +5,9 @@ export { SessaoWatcher } from "./sessao/SessaoWatcher"
 
 // Layout
 export { Painel } from "./layout/painel/Painel"
+export { AdminContainer } from "./layout/admin-container/AdminContainer"
+
+// Header
 export { AdminNavBar } from "./layout/header/AdminNavBar"
 
 // Button

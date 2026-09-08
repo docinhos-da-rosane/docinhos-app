@@ -12,7 +12,7 @@ export function AuthLogin() {
   }
 
   return (
-    <Painel className="flex flex-col gap-8 sm:max-w-lg">
+    <Painel className="flex flex-col gap-8 p-10 sm:max-w-lg">
       <header className="flex flex-col items-center justify-center gap-5">
         <AdminIcon />
         <div className="flex flex-col items-center justify-center gap-1 text-center">

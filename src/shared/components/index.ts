@@ -12,9 +12,12 @@ export { AdminNavBar } from "./layout/header/AdminNavBar"
 
 // Button
 export { CustomButton } from "./button/CustomButton"
+export { VoltarButton } from "./button/VoltarButton"
 
 // Form
 export { FormInput } from "./form/FormInput"
+export { FormSelect } from "./form/FormSelect"
+export { FormTextarea } from "./form/FormTextarea"
 
 // Icon
 export { AdminIcon } from "./icon/AdminIcon"

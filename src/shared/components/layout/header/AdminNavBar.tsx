@@ -9,7 +9,7 @@ export function AdminNavBar() {
 
   return (
     <header className="flex justify-center border-b bg-white p-4">
-      <div className="flex w-full items-center justify-between gap-2 lg:max-w-7xl">
+      <div className="flex w-full items-center justify-between gap-3 lg:max-w-7xl">
         <div className="flex items-center gap-3">
           <Link to={ROTAS_COMPLETAS.ADMIN.PRODUTOS}>
             <AdminIcon size={22} />
@@ -26,7 +26,7 @@ export function AdminNavBar() {
 
         <CustomButton
           onClick={sair}
-          icone={<LogOut />}
+          icone={<LogOut size={16} />}
           variant="outline-secondary"
           className="text-md w-fit px-4 py-2 font-normal sm:px-5"
         >

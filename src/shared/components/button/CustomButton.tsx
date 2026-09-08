@@ -35,7 +35,7 @@ export function CustomButton({
       type={type}
       disabled={props.disabled || loading}
       className={cn(
-        "disabled:pointer-events-nonedisabled:cursor-not-allowed flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:opacity-50",
+        "disabled:pointer-events-nonedisabled:cursor-not-allowed flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
         variants[variant],
         className
       )}

@@ -6,7 +6,9 @@ import {
   type Path,
 } from "react-hook-form"
 import { FormCampo } from "./FormCampo"
-import { Input } from "@base-ui/react/input"
+import { Input } from "../ui/input"
+
+type TipoInput = "texto" | "numero" | "monetario"
 
 interface FormInputProps<
   T extends FieldValues,
@@ -14,15 +16,23 @@ interface FormInputProps<
   label: string
   name: Path<T>
   required?: boolean
+  tipo?: TipoInput
+}
+const validacoesPorTipo: Record<TipoInput, (valor: string) => boolean> = {
+  texto: () => true,
+  numero: (valor) => /^\d*$/.test(valor),
+  monetario: (valor) => /^\d*(,\d{0,2})?$/.test(valor),
 }
 
 export function FormInput<T extends FieldValues>({
   label,
   name,
   required,
+  tipo = "texto",
   ...inputProps
 }: FormInputProps<T>) {
   const { control } = useFormContext()
+
   return (
     <Controller
       name={name}
@@ -37,10 +47,17 @@ export function FormInput<T extends FieldValues>({
           <Input
             {...field}
             {...inputProps}
+            onChange={(event) => {
+              const valor = event.target.value
+
+              if (validacoesPorTipo[tipo](valor)) {
+                field.onChange(valor)
+              }
+            }}
             data-testid={`input-${name}`}
             id={name}
             aria-invalid={fieldState.invalid}
-            className="w-full rounded-md border-2 border-border p-3 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
+            className="h-12 w-full rounded-md border-2 border-border bg-white p-3 text-sm placeholder-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
           />
         </FormCampo>
       )}

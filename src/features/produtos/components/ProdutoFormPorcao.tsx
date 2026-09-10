@@ -43,6 +43,7 @@ export function ProdutoFormPorcao({
           label="Preço (R$)"
           inputMode="decimal"
           name={`porcoes.${index}.preco`}
+          tipo="monetario"
           required
           placeholder="Ex: 10,00"
           maxLength={13}

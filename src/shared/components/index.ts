@@ -21,3 +21,6 @@ export { FormTextarea } from "./form/FormTextarea"
 
 // Icon
 export { AdminIcon } from "./icon/AdminIcon"
+
+// Loading
+export { PageLoading } from "./loading/PageLoading"

@@ -17,6 +17,7 @@ import { ProdutoFormPorcoes } from "./ProdutoFormPorcoes"
 import { useNavigate } from "react-router-dom"
 
 interface ProdutoFormProps {
+  onSubmit: (dados: ProdutoFormData) => void
   atualizar?: boolean
   categoriasOpcoes: Opcao[]
   carregando: boolean
@@ -24,6 +25,7 @@ interface ProdutoFormProps {
 }
 
 export function ProdutoForm({
+  onSubmit,
   atualizar = false,
   categoriasOpcoes,
   carregando,
@@ -45,56 +47,61 @@ export function ProdutoForm({
 
   return (
     <FormProvider {...methods}>
-      <form className="flex w-full flex-col gap-6 lg:w-2xl">
-        <Painel>
-          <h2 className="mb-4 text-xl font-bold lg:text-2xl">
-            Informações do produto
-          </h2>
+      <form
+        className="w-full lg:w-2xl"
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
+        <fieldset disabled={carregando} className="flex flex-col gap-6">
+          <Painel>
+            <h2 className="mb-4 text-xl font-bold lg:text-2xl">
+              Informações do produto
+            </h2>
 
-          <div className="flex flex-col gap-2">
-            <FormInput
-              label="Nome do produto"
-              name="nome"
-              type="text"
-              placeholder="Digite o nome do produto"
-              maxLength={100}
-              required
-            />
+            <div className="flex flex-col gap-2">
+              <FormInput
+                label="Nome do produto"
+                name="nome"
+                type="text"
+                placeholder="Digite o nome do produto"
+                maxLength={100}
+                required
+              />
 
-            <FormSelect
-              label="Categoria"
-              name="categoriaId"
-              opcoes={categoriasOpcoes}
-              placeholder="Selecione a categoria"
-              required
-            />
+              <FormSelect
+                label="Categoria"
+                name="categoriaId"
+                opcoes={categoriasOpcoes}
+                placeholder="Selecione a categoria"
+                required
+              />
 
-            <FormTextarea
-              label="Descrição"
-              name="descricao"
-              placeholder="Conte um pouco sobre este docinho."
-              maxLength={500}
-              required
-            />
-          </div>
-        </Painel>
-        <ProdutoFormPorcoes />
+              <FormTextarea
+                label="Descrição"
+                name="descricao"
+                placeholder="Conte um pouco sobre este docinho."
+                maxLength={500}
+                required
+              />
+            </div>
+          </Painel>
+          <ProdutoFormPorcoes />
 
-        <Painel className="flex flex-col-reverse gap-4 lg:flex-row">
-          <CustomButton type="button" variant="danger" onClick={onCancelar}>
-            Cancelar
-          </CustomButton>
-          <CustomButton
-            type="submit"
-            disabled={
-              methods.formState.isSubmitting || !methods.formState.isValid
-            }
-            variant="primary"
-            loading={carregando}
-          >
-            {atualizar ? "Atualizar Produto" : "Cadastrar Produto"}
-          </CustomButton>
-        </Painel>
+          <Painel className="flex flex-col-reverse gap-4 lg:flex-row">
+            <CustomButton type="button" variant="danger" onClick={onCancelar}>
+              Cancelar
+            </CustomButton>
+            <CustomButton
+              type="submit"
+              disabled={
+                methods.formState.isSubmitting || !methods.formState.isValid
+              }
+              variant="primary"
+              loading={carregando}
+            >
+              {atualizar ? "Atualizar Produto" : "Cadastrar Produto"}
+            </CustomButton>
+          </Painel>
+        </fieldset>
       </form>
     </FormProvider>
   )

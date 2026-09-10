@@ -59,7 +59,12 @@ export function FormSelect<T extends FieldValues>({
               data-testid={`select-${name}`}
               className="w-full rounded-md border-2 border-border p-3 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
             >
-              <SelectValue placeholder={placeholder} />
+              <SelectValue placeholder={placeholder}>
+                {(value) =>
+                  opcoes.find((opcao) => opcao.valor === value)?.label ??
+                  placeholder
+                }
+              </SelectValue>
             </SelectTrigger>
             <SelectContent className="max-h-35 overflow-y-auto rounded-md">
               <SelectGroup className="rounded-md">
@@ -67,7 +72,7 @@ export function FormSelect<T extends FieldValues>({
                   <SelectItem
                     data-testid={`select-item-${name}`}
                     key={opcao.valor}
-                    value={opcao.label}
+                    value={opcao.valor}
                     className="cursor-pointer rounded-md p-2 text-sm hover:bg-primary/10 focus:bg-primary/20"
                   >
                     {opcao.label}

@@ -1,18 +1,39 @@
-import type { Opcao } from "@/shared/models/opcao.types"
+import type { ProdutoFormData } from "../schemas/produto.schema"
+import { useCadastrarProduto } from "../hooks/useCadastrarProduto.ts"
+import { toCriarProdutoFormData } from "../mapper/produto.mapper"
+import { obterErro } from "@/shared/errors/errorService"
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
+import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 interface UseCadastroViewModelResult {
-  categoriasOpcoes: Opcao[]
+  cadastrar(dados: ProdutoFormData): Promise<void>
+  carregando: boolean
 }
 
 export function useCadastroViewModel(): UseCadastroViewModelResult {
-  const categoriasOpcoes: Opcao[] = [
-    { valor: "bolo", label: "Bolo" },
-    { valor: "torta", label: "Torta" },
-    { valor: "docinho", label: "Docinho" },
-    { valor: "salgado", label: "Salgado" },
-  ]
+  const navigate = useNavigate()
+  const cadastrarMutation = useCadastrarProduto()
+
+  async function cadastrar(dados: ProdutoFormData) {
+    try {
+      const request = toCriarProdutoFormData(dados)
+      await cadastrarMutation.mutateAsync(request)
+      toast.success("Produto cadastrado com sucesso!")
+    } catch (erro: unknown) {
+      const erroApp = obterErro(erro)
+      toast.error(erroApp.mensagem)
+    } finally {
+      navegarParaProdutos()
+    }
+  }
+
+  function navegarParaProdutos() {
+    navigate(ROTAS_COMPLETAS.ADMIN.PRODUTOS, { replace: true })
+  }
 
   return {
-    categoriasOpcoes,
+    cadastrar,
+    carregando: cadastrarMutation.isPending,
   }
 }

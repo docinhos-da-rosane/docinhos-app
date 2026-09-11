@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it, vi } from "vitest"
 import { ProdutoListaPage } from "./ProdutoListaPage"
+import { MemoryRouter } from "react-router-dom"
 
 vi.mock("@/shared/hooks/health-check/useHealthCheck", () => ({
   useHealthCheck: () => ({ data: null, error: null, isPending: false }),
@@ -8,8 +9,11 @@ vi.mock("@/shared/hooks/health-check/useHealthCheck", () => ({
 
 describe(ProdutoListaPage.name, () => {
   it("deve renderizar a página da lista de produtos", () => {
-    render(<ProdutoListaPage />)
-
-    expect(screen.getByText("Página de lista de produtos")).toBeInTheDocument()
+    render(
+      <MemoryRouter>
+        <ProdutoListaPage />
+      </MemoryRouter>
+    )
+    expect(screen.getByText("Produtos")).toBeInTheDocument()
   })
 })

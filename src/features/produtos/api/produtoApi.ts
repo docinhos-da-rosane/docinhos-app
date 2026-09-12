@@ -1,5 +1,5 @@
-import { api } from "@/shared/lib/api.config"
+import { apiProtegida } from "@/shared/lib/api.config"
 
 export async function cadastrarProduto(data: FormData): Promise<void> {
-  await api.post("/produtos", data)
+  await apiProtegida.post("/produtos", data)
 }

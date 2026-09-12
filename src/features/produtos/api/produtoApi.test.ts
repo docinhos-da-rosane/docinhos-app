@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
-import { api } from "@/shared/lib/api.config"
+import { apiProtegida } from "@/shared/lib/api.config"
 
 import { cadastrarProduto } from "./produtoApi"
 
 vi.mock("@/shared/lib/api.config", () => ({
-  api: {
+  apiProtegida: {
     post: vi.fn(),
   },
 }))
@@ -20,9 +20,9 @@ describe(cadastrarProduto.name, () => {
     dados.append("nome", "Brigadeiro")
     dados.append("preco", "5.00")
 
-    vi.mocked(api.post).mockResolvedValue({} as any)
+    vi.mocked(apiProtegida.post).mockResolvedValue({} as any)
 
     await expect(cadastrarProduto(dados)).resolves.toBeUndefined()
-    expect(api.post).toHaveBeenCalledWith("/produtos", dados)
+    expect(apiProtegida.post).toHaveBeenCalledWith("/produtos", dados)
   })
 })

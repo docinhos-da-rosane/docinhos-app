@@ -7,11 +7,15 @@ import { limpaSessaoENotifica } from "../services/sessaoService"
 export const BASE_URL: string =
   import.meta.env.VITE_API_URL ?? "http://localhost:8080"
 
-export const api = axios.create({
+export const apiPublica = axios.create({
   baseURL: BASE_URL,
 })
 
-api.interceptors.request.use((config) => {
+export const apiProtegida = axios.create({
+  baseURL: BASE_URL,
+})
+
+apiProtegida.interceptors.request.use((config) => {
   const token = obterToken()
 
   if (token) {
@@ -21,7 +25,7 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-api.interceptors.response.use(
+apiProtegida.interceptors.response.use(
   (response) => response,
   (error) => {
     const codigoErro = extrairCodigoErro(error)

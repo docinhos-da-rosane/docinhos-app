@@ -1,20 +1,20 @@
 import { renderHook, waitFor } from "@testing-library/react"
 import { describe, expect, it, vi } from "vitest"
 
-import { api } from "@/shared/lib/api.config"
+import { apiProtegida } from "@/shared/lib/api.config"
 import { createQueryWrapper } from "@/test/createQueryWrapper"
 
 import { useHealthCheck } from "./useHealthCheck"
 
 vi.mock("@/shared/lib/api.config", () => ({
-  api: {
+  apiProtegida: {
     get: vi.fn(),
   },
 }))
 
 describe(useHealthCheck.name, () => {
   it("deve retornar o status da aplicação", async () => {
-    vi.mocked(api.get).mockResolvedValue({
+    vi.mocked(apiProtegida.get).mockResolvedValue({
       data: {
         status: "UP",
       },
@@ -32,6 +32,6 @@ describe(useHealthCheck.name, () => {
       status: "UP",
     })
 
-    expect(api.get).toHaveBeenCalledWith("/actuator/health")
+    expect(apiProtegida.get).toHaveBeenCalledWith("/actuator/health")
   })
 })

@@ -1,8 +1,8 @@
-import { api } from "@/shared/lib/api.config"
+import { apiPublica } from "@/shared/lib/api.config"
 import type { CategoriaResponse } from "../models/categoria.types"
 
 export async function buscarCategorias(): Promise<CategoriaResponse[]> {
-  return await api
+  return await apiPublica
     .get<CategoriaResponse[]>("/categorias")
     .then((response) => response.data)
 }

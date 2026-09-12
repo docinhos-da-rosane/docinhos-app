@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
-import { api } from "@/shared/lib/api.config"
+import { apiPublica } from "@/shared/lib/api.config"
 
 import { login } from "./authApi"
 import { LOGIN_DATA, TOKEN_VALIDO } from "@/test/mocks/authMocks"
 
 vi.mock("@/shared/lib/api.config", () => ({
-  api: {
+  apiPublica: {
     post: vi.fn(),
   },
 }))
@@ -23,11 +23,11 @@ describe(login.name, () => {
       token: TOKEN_VALIDO,
     }
 
-    vi.mocked(api.post).mockResolvedValue({
+    vi.mocked(apiPublica.post).mockResolvedValue({
       data: resposta,
     } as any)
 
     await expect(login(dados)).resolves.toEqual(resposta)
-    expect(api.post).toHaveBeenCalledWith("/auth/login", dados)
+    expect(apiPublica.post).toHaveBeenCalledWith("/auth/login", dados)
   })
 })

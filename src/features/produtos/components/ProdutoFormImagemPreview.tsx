@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import type { ProdutoFormData } from "../schemas/produto.schema"
 
@@ -10,33 +10,35 @@ export function ProdutoFormImagemPreview({
   imagemValida,
 }: ProdutoFormImagemPreviewProps) {
   const { watch } = useFormContext<ProdutoFormData>()
-  const [previewUrl, setPreviewUrl] = useState<string>()
+  const imagemRef = useRef<HTMLImageElement>(null)
   const imagem = watch("imagem")
+  const deveExibirImagem = Boolean(imagem && imagemValida)
 
   useEffect(() => {
-    if (!imagem || !imagemValida) {
-      setPreviewUrl(undefined)
-      return
-    }
+    if (!deveExibirImagem || !imagem || !imagemRef.current) return
 
+    const imagemElement = imagemRef.current
     const url = URL.createObjectURL(imagem)
-    setPreviewUrl(url)
+
+    imagemElement.src = url
 
     return () => {
       URL.revokeObjectURL(url)
+      imagemElement.removeAttribute("src")
     }
-  }, [imagem])
+  }, [imagem, imagemValida, deveExibirImagem])
 
   return (
     <div className="flex h-64 w-full">
-      {!previewUrl && (
+      {!deveExibirImagem && (
         <div className="flex w-full items-center justify-center rounded-lg border-2 border-dashed border-border bg-background text-muted-foreground">
           <span className="text-sm">Pré-visualização da foto do produto</span>
         </div>
       )}
-      {previewUrl && (
+
+      {deveExibirImagem && (
         <img
-          src={previewUrl}
+          ref={imagemRef}
           alt="Pré-visualização da foto do produto"
           className="w-full rounded-lg object-cover"
         />

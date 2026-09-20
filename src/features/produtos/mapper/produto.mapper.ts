@@ -20,6 +20,7 @@ export function toCriarProdutoFormData(dados: ProdutoFormData): FormData {
 
   const produto = toCriarProdutoRequest(dados)
 
+  formData.append("imagem", dados.imagem as Blob)
   formData.append(
     "produto",
     new Blob([JSON.stringify(produto)], {

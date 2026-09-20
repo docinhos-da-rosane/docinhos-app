@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { Opcao } from "@/shared/models/opcao.types"
 import { ProdutoFormPorcoes } from "./ProdutoFormPorcoes"
 import { useNavigate } from "react-router-dom"
+import { ProdutoFormImagem } from "./ProdutoFormImagem"
 
 interface ProdutoFormProps {
   onSubmit: (dados: ProdutoFormData) => void
@@ -84,6 +85,7 @@ export function ProdutoForm({
               />
             </div>
           </Painel>
+          <ProdutoFormImagem desativar={carregando} />
           <ProdutoFormPorcoes />
 
           <Painel className="flex flex-col-reverse gap-4 lg:flex-row">

@@ -16,6 +16,7 @@ export { VoltarButton } from "./button/VoltarButton"
 
 // Form
 export { FormInput } from "./form/FormInput"
+export { FormInputFile } from "./form/FormInputFile"
 export { FormSelect } from "./form/FormSelect"
 export { FormTextarea } from "./form/FormTextarea"
 

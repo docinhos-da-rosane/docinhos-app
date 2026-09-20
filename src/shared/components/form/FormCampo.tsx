@@ -2,7 +2,7 @@ import type { FieldError as RHFFieldError } from "react-hook-form"
 import { Field, FieldError, FieldLabel } from "../ui/field"
 
 interface FormCampoProps {
-  label: string
+  label?: string
   name: string
   required?: boolean
   error?: RHFFieldError

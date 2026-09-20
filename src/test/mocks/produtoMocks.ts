@@ -5,6 +5,7 @@ export const PRODUTO_FORM_DATA: ProdutoFormData = {
   nome: "Brigadeiro",
   descricao: "Brigadeiro tradicional",
   categoriaId: "categoria-uuid-1",
+  imagem: new File([""], "produto.png", { type: "image/png" }),
   porcoes: [
     {
       quantidade: "10",

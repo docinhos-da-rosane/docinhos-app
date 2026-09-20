@@ -26,7 +26,7 @@ function renderForm(
 }
 
 describe(ProdutoForm.name, () => {
-  it("deve renderizar os campos do produto e da porção", () => {
+  it("deve renderizar os campos do produto, da foto e da porção", () => {
     renderForm()
 
     expect(screen.getByText("Nome do produto")).toBeInTheDocument()
@@ -34,6 +34,7 @@ describe(ProdutoForm.name, () => {
     expect(screen.getByText("Descrição")).toBeInTheDocument()
     expect(screen.getByText("Quantidade (un.)")).toBeInTheDocument()
     expect(screen.getByText("Preço (R$)")).toBeInTheDocument()
+    expect(screen.getByText("Foto do Produto")).toBeInTheDocument()
     expect(
       screen.getByRole("button", { name: "Cadastrar Produto" })
     ).toBeInTheDocument()

@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { AdminNavBar } from "./AdminNavBar"
-import { MemoryRouter } from "react-router-dom"
 
 const mocks = vi.hoisted(() => ({
   sair: vi.fn(),
@@ -15,6 +15,8 @@ vi.mock("@/features/auth", () => ({
   }),
 }))
 
+const RouterWrapper = createMemoryRouterWrapper()
+
 describe(AdminNavBar.name, () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -22,9 +24,9 @@ describe(AdminNavBar.name, () => {
 
   it("deve renderizar o cabeçalho quando for exibido", () => {
     render(
-      <MemoryRouter>
+      <RouterWrapper>
         <AdminNavBar />
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     expect(screen.getByText("Docinhos da")).toBeInTheDocument()
@@ -37,9 +39,9 @@ describe(AdminNavBar.name, () => {
     const user = userEvent.setup()
 
     render(
-      <MemoryRouter>
+      <RouterWrapper>
         <AdminNavBar />
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     await user.click(screen.getByRole("button", { name: "Sair" }))

@@ -1,27 +1,26 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import {
-  createMemoryRouter,
-  MemoryRouter,
-  RouterProvider,
-} from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import { describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { ProdutoForm } from "./ProdutoForm"
 import { CATEGORIAS_OPCOES } from "@/test/mocks/categoriaMocks"
+
+const RouterWrapper = createMemoryRouterWrapper()
 
 function renderForm(
   props: Partial<React.ComponentProps<typeof ProdutoForm>> = {}
 ) {
   return render(
-    <MemoryRouter>
+    <RouterWrapper>
       <ProdutoForm
         onSubmit={vi.fn()}
         categoriasOpcoes={CATEGORIAS_OPCOES}
         carregando={false}
         {...props}
       />
-    </MemoryRouter>
+    </RouterWrapper>
   )
 }
 
@@ -71,31 +70,28 @@ describe(ProdutoForm.name, () => {
 
   it("deve navegar para a rota de cancelamento", async () => {
     const user = userEvent.setup()
+    const CancelRouteWrapper = createMemoryRouterWrapper([
+      "/produtos/cadastrar",
+    ])
 
-    const router = createMemoryRouter(
-      [
-        {
-          path: "/produtos/cadastrar",
-          element: (
-            <ProdutoForm
-              onSubmit={vi.fn()}
-              categoriasOpcoes={CATEGORIAS_OPCOES}
-              carregando={false}
-              rotaCancelar="/produtos"
-            />
-          ),
-        },
-        {
-          path: "/produtos",
-          element: <p>Lista de produtos</p>,
-        },
-      ],
-      {
-        initialEntries: ["/produtos/cadastrar"],
-      }
+    render(
+      <CancelRouteWrapper>
+        <Routes>
+          <Route
+            path="/produtos/cadastrar"
+            element={
+              <ProdutoForm
+                onSubmit={vi.fn()}
+                categoriasOpcoes={CATEGORIAS_OPCOES}
+                carregando={false}
+                rotaCancelar="/produtos"
+              />
+            }
+          />
+          <Route path="/produtos" element={<p>Lista de produtos</p>} />
+        </Routes>
+      </CancelRouteWrapper>
     )
-
-    render(<RouterProvider router={router} />)
 
     await user.click(screen.getByRole("button", { name: "Cancelar" }))
 

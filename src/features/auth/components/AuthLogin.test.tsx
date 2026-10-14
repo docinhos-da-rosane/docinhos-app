@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
-import { MemoryRouter } from "react-router-dom"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { AuthLogin } from "./AuthLogin"
 import userEvent from "@testing-library/user-event"
 import { LOGIN_DATA } from "@/test/mocks/authMocks"
@@ -18,6 +18,8 @@ vi.mock("../view-model/useLoginViewModel", () => ({
   }),
 }))
 
+const RouterWrapper = createMemoryRouterWrapper()
+
 describe(AuthLogin.name, () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -26,9 +28,9 @@ describe(AuthLogin.name, () => {
 
   it("deve renderizar o conteúdo quando for renderizado", () => {
     render(
-      <MemoryRouter>
+      <RouterWrapper>
         <AuthLogin />
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     expect(screen.getByText("Área")).toBeInTheDocument()
@@ -40,9 +42,9 @@ describe(AuthLogin.name, () => {
     const user = userEvent.setup()
 
     render(
-      <MemoryRouter>
+      <RouterWrapper>
         <AuthLogin />
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     await user.type(screen.getByLabelText("Email"), LOGIN_DATA.email)
@@ -58,9 +60,9 @@ describe(AuthLogin.name, () => {
     mocks.carregando = true
 
     render(
-      <MemoryRouter>
+      <RouterWrapper>
         <AuthLogin />
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     expect(screen.getByText("Entrando...")).toBeInTheDocument()

@@ -1,4 +1,8 @@
-import type { CriarProdutoRequest } from "@/features/produtos/models/produto.types"
+import type {
+  CriarProdutoRequest,
+  PageResponse,
+  ProdutoResumoResponse,
+} from "@/features/produtos/models/produto.types"
 import type { ProdutoFormData } from "@/features/produtos/schemas/produto.schema"
 
 export const PRODUTO_FORM_DATA: ProdutoFormData = {
@@ -32,4 +36,20 @@ export const CRIAR_PRODUTO_REQUEST: CriarProdutoRequest = {
       preco: 9.99,
     },
   ],
+}
+
+export const PAGINA_INICIAL: PageResponse<ProdutoResumoResponse> = {
+  content: [
+    {
+      id: "produto-1",
+      nome: "Brigadeiro",
+      categoria: "Tradicionais",
+      imagemMiniaturaUrl: "https://example.com/brigadeiro-miniatura.jpg",
+      disponivel: true,
+    },
+  ],
+  page: 0,
+  size: 6,
+  totalElements: 7,
+  totalPages: 2,
 }

@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react"
-import { createMemoryRouter, RouterProvider } from "react-router"
+import { Route, Routes } from "react-router"
 import { describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { AdminLayout } from "./AdminLayout"
 
 vi.mock("@/shared/components/layout/header/AdminNavBar", () => ({
@@ -10,20 +11,17 @@ vi.mock("@/shared/components/layout/header/AdminNavBar", () => ({
 
 describe(AdminLayout.name, () => {
   it("deve renderizar o layout administrativo e o conteúdo da rota filha", () => {
-    const router = createMemoryRouter([
-      {
-        path: "/",
-        element: <AdminLayout />,
-        children: [
-          {
-            index: true,
-            element: <p>Conteúdo administrativo</p>,
-          },
-        ],
-      },
-    ])
+    const RouterWrapper = createMemoryRouterWrapper()
 
-    render(<RouterProvider router={router} />)
+    render(
+      <RouterWrapper>
+        <Routes>
+          <Route path="/" element={<AdminLayout />}>
+            <Route index element={<p>Conteúdo administrativo</p>} />
+          </Route>
+        </Routes>
+      </RouterWrapper>
+    )
 
     expect(
       screen.getByRole("heading", { name: "Docinhos da Rosane" })

@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { createMemoryRouter, RouterProvider } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 import { ProdutoCadastroPage } from "./ProdutoCadastroPage"
 
@@ -29,24 +30,23 @@ vi.mock("../view-model/useOpcoesViewModel", () => ({
 }))
 
 function renderPage() {
+  const RouterWrapper = createMemoryRouterWrapper([
+    ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO,
+  ])
+
   return render(
-    <RouterProvider
-      router={createMemoryRouter(
-        [
-          {
-            path: ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO,
-            element: <ProdutoCadastroPage />,
-          },
-          {
-            path: ROTAS_COMPLETAS.ADMIN.PRODUTOS,
-            element: <div>Lista de produtos</div>,
-          },
-        ],
-        {
-          initialEntries: [ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO],
-        }
-      )}
-    />
+    <RouterWrapper>
+      <Routes>
+        <Route
+          path={ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO}
+          element={<ProdutoCadastroPage />}
+        />
+        <Route
+          path={ROTAS_COMPLETAS.ADMIN.PRODUTOS}
+          element={<div>Lista de produtos</div>}
+        />
+      </Routes>
+    </RouterWrapper>
   )
 }
 

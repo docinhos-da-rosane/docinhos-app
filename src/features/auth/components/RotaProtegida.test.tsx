@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react"
-import { MemoryRouter, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { RotaProtegida } from "./RotaProtegida"
 
 const mocks = vi.hoisted(() => ({
@@ -12,6 +13,8 @@ vi.mock("@/shared/services/tokenService", () => ({
   estaAutenticado: mocks.estaAutenticado,
 }))
 
+const RouterWrapper = createMemoryRouterWrapper(["/admin/produtos"])
+
 describe(RotaProtegida.name, () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -21,7 +24,7 @@ describe(RotaProtegida.name, () => {
     mocks.estaAutenticado.mockReturnValue(true)
 
     render(
-      <MemoryRouter initialEntries={["/admin/produtos"]}>
+      <RouterWrapper>
         <Routes>
           <Route element={<RotaProtegida />}>
             <Route
@@ -30,7 +33,7 @@ describe(RotaProtegida.name, () => {
             />
           </Route>
         </Routes>
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     expect(screen.getByText("Produtos protegidos")).toBeInTheDocument()
@@ -40,7 +43,7 @@ describe(RotaProtegida.name, () => {
     mocks.estaAutenticado.mockReturnValue(false)
 
     render(
-      <MemoryRouter initialEntries={["/admin/produtos"]}>
+      <RouterWrapper>
         <Routes>
           <Route element={<RotaProtegida />}>
             <Route
@@ -50,7 +53,7 @@ describe(RotaProtegida.name, () => {
           </Route>
           <Route path="/admin/login" element={<span>Página de login</span>} />
         </Routes>
-      </MemoryRouter>
+      </RouterWrapper>
     )
 
     expect(screen.getByText("Página de login")).toBeInTheDocument()

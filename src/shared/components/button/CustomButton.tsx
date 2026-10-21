@@ -1,6 +1,7 @@
 import { cn } from "@/shared/lib/utils"
 import { LoaderCircle } from "lucide-react"
 import type { ButtonHTMLAttributes, ReactNode } from "react"
+import { useNavigate } from "react-router-dom"
 
 type CustomButtonVariant =
   "primary" | "secondary" | "info" | "danger" | "outline-secondary"
@@ -9,6 +10,7 @@ interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: CustomButtonVariant
   icone?: ReactNode
   loading?: boolean
+  rotaNavegar?: string
 }
 
 const variants: Record<CustomButtonVariant, string> = {
@@ -27,13 +29,21 @@ export function CustomButton({
   loading = false,
   className,
   children,
+  rotaNavegar,
   ...props
 }: CustomButtonProps) {
+  const navigate = useNavigate()
+
   return (
     <button
       {...props}
       type={type}
       disabled={props.disabled || loading}
+      onClick={
+        rotaNavegar
+          ? () => navigate(rotaNavegar, { replace: true })
+          : props.onClick
+      }
       className={cn(
         "disabled:pointer-events-nonedisabled:cursor-not-allowed flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
         variants[variant],

@@ -1,6 +1,7 @@
 import { apiProtegida } from "@/shared/lib/api.config"
 import type {
   PageResponse,
+  ProdutoDetalhadoResponse,
   ProdutoResumoResponse,
 } from "../models/produto.types"
 
@@ -13,6 +14,14 @@ export async function buscarProdutos(
     .get<PageResponse<ProdutoResumoResponse>>("/produtos", {
       params: { page, size: TAMANHO_PAGINA_PRODUTOS },
     })
+    .then((response) => response.data)
+}
+
+export async function buscarProduto(
+  id: string
+): Promise<ProdutoDetalhadoResponse> {
+  return await apiProtegida
+    .get<ProdutoDetalhadoResponse>(`/produtos/${id}`)
     .then((response) => response.data)
 }
 

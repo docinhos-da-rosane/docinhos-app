@@ -8,6 +8,7 @@ export const ROTAS = {
     PRODUTOS: "produtos",
     DESTAQUES: "destaques",
     PRODUTOS_CADASTRO: "produtos/cadastro",
+    PRODUTOS_DETALHES: "produtos/:id",
   },
 } as const
 
@@ -21,5 +22,6 @@ export const ROTAS_COMPLETAS = {
     PRODUTOS: `/${ROTAS.ADMIN.ROOT}/${ROTAS.ADMIN.PRODUTOS}`,
     DESTAQUES: `/${ROTAS.ADMIN.ROOT}/${ROTAS.ADMIN.DESTAQUES}`,
     PRODUTOS_CADASTRO: `/${ROTAS.ADMIN.ROOT}/${ROTAS.ADMIN.PRODUTOS_CADASTRO}`,
+    PRODUTO_DETALHES: (id: string) => `/${ROTAS.ADMIN.ROOT}/produtos/${id}`,
   },
 } as const

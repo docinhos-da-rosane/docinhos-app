@@ -5,6 +5,7 @@ import { ROTAS } from "@/shared/constants/routes"
 import { LoginPage, RotaProtegida } from "@/features/auth"
 import { estaAutenticado } from "@/shared/services/tokenService"
 import { ProdutoCadastroPage } from "@/features/produtos/pages/ProdutoCadastroPage"
+import { ProdutoDetalhesPage } from "@/features/produtos/pages/ProdutoDetalhesPage"
 
 export const adminRoutes: RouteObject = {
   path: ROTAS.ADMIN.ROOT,
@@ -38,6 +39,10 @@ export const adminRoutes: RouteObject = {
             {
               path: ROTAS.ADMIN.PRODUTOS_CADASTRO,
               Component: ProdutoCadastroPage,
+            },
+            {
+              path: ROTAS.ADMIN.PRODUTOS_DETALHES,
+              Component: ProdutoDetalhesPage,
             },
           ],
         },

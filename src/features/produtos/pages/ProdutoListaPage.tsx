@@ -10,6 +10,7 @@ import { ProdutoListaTabela } from "../components/ProdutoListaTabela"
 import { ProdutoListaVazia } from "../components/ProdutoListaVazia"
 import { ProdutoPaginacao } from "../components/ProdutoPaginacao"
 import { InlineError } from "@/shared/components/error/InlineError"
+import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 export function ProdutoListaPage() {
   const {
@@ -21,7 +22,6 @@ export function ProdutoListaPage() {
     proximaPaginaDesabilitada,
     navegarParaPaginaAnterior,
     navegarParaProximaPagina,
-    navegarParaCadastro,
   } = useProdutoListaViewModel()
 
   return (
@@ -30,7 +30,7 @@ export function ProdutoListaPage() {
       subtitulo="Consulte e atualize os produtos do catálogo."
       acoes={
         <CustomButton
-          onClick={navegarParaCadastro}
+          rotaNavegar={ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO}
           className="text-md lg:w-auto lg:px-6 lg:text-lg"
           icone={<Plus strokeWidth={2.5} />}
         >
@@ -47,7 +47,9 @@ export function ProdutoListaPage() {
           ) : possuiProdutos ? (
             <ProdutoListaTabela produtos={produtos} />
           ) : (
-            <ProdutoListaVazia onCadastrarProduto={navegarParaCadastro} />
+            <ProdutoListaVazia
+              rotaCadastrarProduto={ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO}
+            />
           )}
         </Painel>
 

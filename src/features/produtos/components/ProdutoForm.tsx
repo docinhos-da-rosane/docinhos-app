@@ -14,7 +14,6 @@ import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Opcao } from "@/shared/models/opcao.types"
 import { ProdutoFormPorcoes } from "./ProdutoFormPorcoes"
-import { useNavigate } from "react-router-dom"
 import { ProdutoFormImagem } from "./ProdutoFormImagem"
 
 interface ProdutoFormProps {
@@ -32,19 +31,12 @@ export function ProdutoForm({
   carregando,
   rotaCancelar = "/",
 }: ProdutoFormProps) {
-  const navigate = useNavigate()
-
   const methods = useForm<ProdutoFormData>({
     resolver: zodResolver(produtoSchema),
     mode: "onTouched",
     reValidateMode: "onChange",
     defaultValues: produtoValoresPadrao,
   })
-
-  function onCancelar() {
-    methods.reset()
-    navigate(rotaCancelar, { replace: true })
-  }
 
   return (
     <FormProvider {...methods}>
@@ -89,7 +81,11 @@ export function ProdutoForm({
           <ProdutoFormPorcoes />
 
           <Painel className="flex flex-col-reverse gap-4 lg:flex-row">
-            <CustomButton type="button" variant="danger" onClick={onCancelar}>
+            <CustomButton
+              type="button"
+              variant="danger"
+              rotaNavegar={rotaCancelar}
+            >
               Cancelar
             </CustomButton>
             <CustomButton

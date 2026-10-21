@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import { apiProtegida } from "@/shared/lib/api.config"
 
 import {
+  buscarProduto,
   buscarProdutos,
   cadastrarProduto,
   TAMANHO_PAGINA_PRODUTOS,
@@ -11,6 +12,7 @@ import type {
   PageResponse,
   ProdutoResumoResponse,
 } from "../models/produto.types"
+import { PRODUTO_DETALHADO } from "@/test/mocks/produtoMocks"
 
 vi.mock("@/shared/lib/api.config", () => ({
   apiProtegida: {
@@ -71,6 +73,20 @@ describe("produtoApi", () => {
     expect(apiProtegida.get).toHaveBeenCalledWith("/produtos", {
       params: { page: 2, size: TAMANHO_PAGINA_PRODUTOS },
     })
+  })
+
+  it("deve buscar os detalhes de um produto pelo id", async () => {
+    vi.mocked(apiProtegida.get).mockResolvedValue({
+      data: PRODUTO_DETALHADO,
+    } as any)
+
+    const resposta = await buscarProduto(PRODUTO_DETALHADO.id)
+
+    expect(resposta).toEqual(PRODUTO_DETALHADO)
+    expect(apiProtegida.get).toHaveBeenCalledWith(
+      "/produtos/" + PRODUTO_DETALHADO.id
+    )
+    expect(apiProtegida.get).toHaveBeenCalledTimes(1)
   })
 
   it("deve cadastrar o produto", async () => {

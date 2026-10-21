@@ -1,9 +1,12 @@
 import type {
   CriarProdutoRequest,
   PageResponse,
+  ProdutoDetalhadoResponse,
   ProdutoResumoResponse,
 } from "@/features/produtos/models/produto.types"
 import type { ProdutoFormData } from "@/features/produtos/schemas/produto.schema"
+
+export const PRODUTO_ID = "a82427ea-22a7-4264-9719-56683cd01295"
 
 export const PRODUTO_FORM_DATA: ProdutoFormData = {
   nome: "Brigadeiro",
@@ -52,4 +55,18 @@ export const PAGINA_INICIAL: PageResponse<ProdutoResumoResponse> = {
   size: 6,
   totalElements: 7,
   totalPages: 2,
+}
+
+export const PRODUTO_DETALHADO: ProdutoDetalhadoResponse = {
+  id: PRODUTO_ID,
+  nome: "Brigadeiro Tradicional",
+  descricao: "Descrição completa do brigadeiro.",
+  categoria: "Tradicionais",
+  disponivel: true,
+  imagemUrl: "https://example.com/brigadeiro.jpg",
+  porcoes: [
+    { quantidade: 15, preco: 55 },
+    { quantidade: 25, preco: 85 },
+    { quantidade: 50, preco: 155 },
+  ],
 }

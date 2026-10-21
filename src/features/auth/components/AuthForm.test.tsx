@@ -1,13 +1,25 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import type { ComponentProps } from "react"
 import { describe, expect, it, vi } from "vitest"
 
 import { AuthForm } from "./AuthForm"
 import { LOGIN_DATA } from "@/test/mocks/authMocks"
+import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
+
+function renderAuthForm(props: ComponentProps<typeof AuthForm>) {
+  const Wrapper = createMemoryRouterWrapper()
+
+  return render(
+    <Wrapper>
+      <AuthForm {...props} />
+    </Wrapper>
+  )
+}
 
 describe(AuthForm.name, () => {
   it("deve renderizar os campos quando for renderizado", () => {
-    render(<AuthForm onSubmit={vi.fn()} carregando={false} />)
+    renderAuthForm({ onSubmit: vi.fn(), carregando: false })
 
     expect(screen.getByLabelText("Email")).toBeInTheDocument()
     expect(screen.getByLabelText("Senha")).toBeInTheDocument()
@@ -15,7 +27,7 @@ describe(AuthForm.name, () => {
   })
 
   it("deve manter o botão desabilitado quando o formulário estiver vazio", () => {
-    render(<AuthForm onSubmit={vi.fn()} carregando={false} />)
+    renderAuthForm({ onSubmit: vi.fn(), carregando: false })
 
     expect(screen.getByRole("button", { name: "Entrar" })).toBeDisabled()
   })
@@ -24,7 +36,7 @@ describe(AuthForm.name, () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
 
-    render(<AuthForm onSubmit={onSubmit} carregando={false} />)
+    renderAuthForm({ onSubmit, carregando: false })
 
     await user.type(screen.getByLabelText("Email"), LOGIN_DATA.email)
     await user.type(screen.getByLabelText("Senha"), LOGIN_DATA.senha)
@@ -38,9 +50,7 @@ describe(AuthForm.name, () => {
 
   it("deve exibir mensagens de validação quando o formulário inválido for submetido", async () => {
     const onSubmit = vi.fn()
-    const { container } = render(
-      <AuthForm onSubmit={onSubmit} carregando={false} />
-    )
+    const { container } = renderAuthForm({ onSubmit, carregando: false })
 
     fireEvent.submit(container.querySelector("form")!)
 
@@ -53,7 +63,7 @@ describe(AuthForm.name, () => {
   })
 
   it("deve desabilitar o botão e exibir carregamento quando estiver carregando", () => {
-    render(<AuthForm onSubmit={vi.fn()} carregando />)
+    renderAuthForm({ onSubmit: vi.fn(), carregando: true })
 
     const button = screen.getByRole("button", { name: "Entrando..." })
 

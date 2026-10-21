@@ -2,11 +2,11 @@ import { CustomButton } from "@/shared/components"
 import { Dessert } from "lucide-react"
 
 interface ProdutoListaVaziaProps {
-  onCadastrarProduto: () => void
+  rotaCadastrarProduto: string
 }
 
 export function ProdutoListaVazia({
-  onCadastrarProduto,
+  rotaCadastrarProduto,
 }: ProdutoListaVaziaProps) {
   return (
     <div className="flex min-h-80 flex-col items-center justify-center gap-4 px-5 py-12 text-center">
@@ -25,7 +25,7 @@ export function ProdutoListaVazia({
       </div>
       <CustomButton
         className="w-auto px-6 py-3 text-base"
-        onClick={onCadastrarProduto}
+        rotaNavegar={rotaCadastrarProduto}
       >
         Cadastrar produto
       </CustomButton>

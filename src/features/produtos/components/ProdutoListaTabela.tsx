@@ -1,7 +1,8 @@
 import { ChevronRight } from "lucide-react"
 import type { ProdutoResumoResponse } from "../models/produto.types"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import { ProdutoDisponibilidade } from "./ProdutoDisponibilidade"
+import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 interface ProdutoListaTabelaProps {
   produtos: ProdutoResumoResponse[]
@@ -59,8 +60,8 @@ export function ProdutoListaTabela({ produtos }: ProdutoListaTabelaProps) {
             </td>
             <td className="col-start-3 row-start-3 text-foreground md:table-cell md:p-4">
               <Link
-                to={`/produtos/${produto.id}`}
-                className="text-sm font-medium"
+                to={ROTAS_COMPLETAS.ADMIN.PRODUTO_DETALHES(produto.id)}
+                className="flex justify-center"
               >
                 <ChevronRight
                   aria-hidden="true"

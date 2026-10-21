@@ -13,6 +13,21 @@ export interface ProdutoResumoResponse {
   disponivel: boolean
 }
 
+export interface ProdutoDetalhadoResponse {
+  id: string
+  nome: string
+  descricao: string
+  categoria: string
+  disponivel: boolean
+  imagemUrl: string
+  porcoes: PorcaoResponse[]
+}
+
+export interface PorcaoResponse {
+  quantidade: number
+  preco: number
+}
+
 export interface PageResponse<T> {
   content: T[]
   page: number

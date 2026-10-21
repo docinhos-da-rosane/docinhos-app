@@ -26,7 +26,7 @@ export function AdminContainer({
         <div className="flex w-full flex-col gap-4 lg:max-w-7xl">
           <div>
             {rotaVoltar && (
-              <VoltarButton rota={rotaVoltar} texto={textoVoltar} />
+              <VoltarButton rotaVoltar={rotaVoltar}>{textoVoltar}</VoltarButton>
             )}
           </div>
           <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">

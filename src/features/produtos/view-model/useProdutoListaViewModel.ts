@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { obterErro } from "@/shared/errors/errorService"
 import { useBuscarProdutos } from "../hooks/useBuscaProdutos"
-import { useNavigate } from "react-router-dom"
-import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 import type { ProdutoResumoResponse } from "../models/produto.types"
 
 interface ProdutoListaViewModelResult {
@@ -16,11 +14,9 @@ interface ProdutoListaViewModelResult {
   proximaPaginaDesabilitada: boolean
   navegarParaPaginaAnterior: () => void
   navegarParaProximaPagina: () => void
-  navegarParaCadastro: () => void
 }
 
 export function useProdutoListaViewModel(): ProdutoListaViewModelResult {
-  const navigate = useNavigate()
   const [page, setPage] = useState(0)
   const produtosQuery = useBuscarProdutos(page)
 
@@ -60,10 +56,6 @@ export function useProdutoListaViewModel(): ProdutoListaViewModelResult {
     setPage((paginaAtual) => paginaAtual + 1)
   }
 
-  function navegarParaCadastro() {
-    navigate(ROTAS_COMPLETAS.ADMIN.PRODUTOS_CADASTRO)
-  }
-
   return {
     page,
     produtos: produtosQuery.data?.content ?? [],
@@ -74,6 +66,5 @@ export function useProdutoListaViewModel(): ProdutoListaViewModelResult {
     proximaPaginaDesabilitada,
     navegarParaPaginaAnterior,
     navegarParaProximaPagina,
-    navegarParaCadastro,
   }
 }

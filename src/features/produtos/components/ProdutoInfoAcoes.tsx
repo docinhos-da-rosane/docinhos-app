@@ -7,7 +7,7 @@ interface ProdutoInfoAcoesProps {
 
 export function ProdutoInfoAcoes({ disponivel }: ProdutoInfoAcoesProps) {
   return (
-    <Painel className="flex flex-col gap-4 lg:col-start-1 lg:row-start-2">
+    <Painel className="flex min-h-full flex-col gap-4 lg:col-start-1 lg:row-start-2">
       <CustomButton className="px-5 py-3 text-sm">Editar produto</CustomButton>
       <CustomButton
         variant="outline-secondary"

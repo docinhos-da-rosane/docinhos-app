@@ -2,24 +2,48 @@ import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Route, Routes } from "react-router-dom"
 import { describe, expect, it, vi } from "vitest"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { ProdutoForm } from "./ProdutoForm"
 import { CATEGORIAS_OPCOES } from "@/test/mocks/categoriaMocks"
+import {
+  produtoSchemaEdicao,
+  produtoValoresPadrao,
+  type ProdutoFormDataEdicao,
+} from "../schemas/produto.schema"
 
 const RouterWrapper = createMemoryRouterWrapper()
 
-function renderForm(
-  props: Partial<React.ComponentProps<typeof ProdutoForm>> = {}
-) {
+type ProdutoFormProps = Omit<
+  React.ComponentProps<typeof ProdutoForm>,
+  "methods"
+>
+
+function ProdutoFormComponente(props: Partial<ProdutoFormProps> = {}) {
+  const methods = useForm<ProdutoFormDataEdicao>({
+    resolver: zodResolver(produtoSchemaEdicao),
+    mode: "onTouched",
+    reValidateMode: "onChange",
+    defaultValues: produtoValoresPadrao,
+  })
+
+  return (
+    <ProdutoForm
+      onSubmit={vi.fn()}
+      categoriasOpcoes={CATEGORIAS_OPCOES}
+      carregando={false}
+      methods={methods}
+      {...props}
+    />
+  )
+}
+
+function renderForm(props: Partial<ProdutoFormProps> = {}) {
   return render(
     <RouterWrapper>
-      <ProdutoForm
-        onSubmit={vi.fn()}
-        categoriasOpcoes={CATEGORIAS_OPCOES}
-        carregando={false}
-        {...props}
-      />
+      <ProdutoFormComponente {...props} />
     </RouterWrapper>
   )
 }
@@ -60,8 +84,8 @@ describe(ProdutoForm.name, () => {
     expect(screen.getAllByText("Preço (R$)")).toHaveLength(2)
   })
 
-  it("deve exibir Atualizar Produto quando estiver atualizando", () => {
-    renderForm({ atualizar: true })
+  it("deve exibir o texto de ação informado para atualização", () => {
+    renderForm({ textoAcao: "Atualizar Produto" })
 
     expect(
       screen.getByRole("button", { name: "Atualizar Produto" })
@@ -79,14 +103,7 @@ describe(ProdutoForm.name, () => {
         <Routes>
           <Route
             path="/produtos/cadastrar"
-            element={
-              <ProdutoForm
-                onSubmit={vi.fn()}
-                categoriasOpcoes={CATEGORIAS_OPCOES}
-                carregando={false}
-                rotaCancelar="/produtos"
-              />
-            }
+            element={<ProdutoFormComponente rotaCancelar="/produtos" />}
           />
           <Route path="/produtos" element={<p>Lista de produtos</p>} />
         </Routes>

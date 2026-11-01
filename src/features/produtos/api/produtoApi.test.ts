@@ -6,6 +6,7 @@ import {
   buscarProduto,
   buscarProdutos,
   cadastrarProduto,
+  atualizarProduto,
   TAMANHO_PAGINA_PRODUTOS,
 } from "./produtoApi"
 import type {
@@ -18,6 +19,7 @@ vi.mock("@/shared/lib/api.config", () => ({
   apiProtegida: {
     get: vi.fn(),
     post: vi.fn(),
+    put: vi.fn(),
   },
 }))
 
@@ -98,5 +100,22 @@ describe("produtoApi", () => {
 
     await expect(cadastrarProduto(dados)).resolves.toBeUndefined()
     expect(apiProtegida.post).toHaveBeenCalledWith("/produtos", dados)
+  })
+
+  it("deve atualizar o produto pelo id", async () => {
+    const dados = new FormData()
+    dados.append("produto", "produto atualizado")
+
+    vi.mocked(apiProtegida.put).mockResolvedValue({} as any)
+
+    await expect(
+      atualizarProduto(PRODUTO_DETALHADO.id, dados)
+    ).resolves.toBeUndefined()
+
+    expect(apiProtegida.put).toHaveBeenCalledWith(
+      `/produtos/${PRODUTO_DETALHADO.id}`,
+      dados
+    )
+    expect(apiProtegida.put).toHaveBeenCalledTimes(1)
   })
 })

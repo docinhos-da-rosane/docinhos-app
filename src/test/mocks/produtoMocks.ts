@@ -61,7 +61,10 @@ export const PRODUTO_DETALHADO: ProdutoDetalhadoResponse = {
   id: PRODUTO_ID,
   nome: "Brigadeiro Tradicional",
   descricao: "Descrição completa do brigadeiro.",
-  categoria: "Tradicionais",
+  categoria: {
+    id: "categoria-uuid-1",
+    nome: "Tradicionais",
+  },
   disponivel: true,
   imagemUrl: "https://example.com/brigadeiro.jpg",
   porcoes: [

@@ -5,39 +5,36 @@ import {
   FormTextarea,
   Painel,
 } from "@/shared/components"
+import { type ProdutoFormValues } from "../schemas/produto.schema"
 import {
-  produtoSchema,
-  produtoValoresPadrao,
-  type ProdutoFormData,
-} from "../schemas/produto.schema"
-import { FormProvider, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+  FormProvider,
+  type SubmitHandler,
+  type UseFormReturn,
+} from "react-hook-form"
 import type { Opcao } from "@/shared/models/opcao.types"
 import { ProdutoFormPorcoes } from "./ProdutoFormPorcoes"
 import { ProdutoFormImagem } from "./ProdutoFormImagem"
 
-interface ProdutoFormProps {
-  onSubmit: (dados: ProdutoFormData) => void
+interface ProdutoFormProps<T extends ProdutoFormValues> {
+  onSubmit: SubmitHandler<T>
   atualizar?: boolean
   categoriasOpcoes: Opcao[]
   carregando: boolean
   rotaCancelar?: string
+  textoAcao?: string
+  imagemUrl?: string
+  methods: UseFormReturn<T>
 }
 
-export function ProdutoForm({
+export function ProdutoForm<T extends ProdutoFormValues>({
   onSubmit,
-  atualizar = false,
   categoriasOpcoes,
   carregando,
   rotaCancelar = "/",
-}: ProdutoFormProps) {
-  const methods = useForm<ProdutoFormData>({
-    resolver: zodResolver(produtoSchema),
-    mode: "onTouched",
-    reValidateMode: "onChange",
-    defaultValues: produtoValoresPadrao,
-  })
-
+  textoAcao = "Cadastrar Produto",
+  imagemUrl,
+  methods,
+}: ProdutoFormProps<T>) {
   return (
     <FormProvider {...methods}>
       <form
@@ -51,7 +48,7 @@ export function ProdutoForm({
             </h2>
 
             <div className="flex flex-col gap-2">
-              <FormInput
+              <FormInput<ProdutoFormValues>
                 label="Nome do produto"
                 name="nome"
                 type="text"
@@ -60,7 +57,7 @@ export function ProdutoForm({
                 required
               />
 
-              <FormSelect
+              <FormSelect<ProdutoFormValues>
                 label="Categoria"
                 name="categoriaId"
                 opcoes={categoriasOpcoes}
@@ -68,7 +65,7 @@ export function ProdutoForm({
                 required
               />
 
-              <FormTextarea
+              <FormTextarea<ProdutoFormValues>
                 label="Descrição"
                 name="descricao"
                 placeholder="Conte um pouco sobre este docinho."
@@ -77,7 +74,7 @@ export function ProdutoForm({
               />
             </div>
           </Painel>
-          <ProdutoFormImagem desativar={carregando} />
+          <ProdutoFormImagem desativar={carregando} imagemUrl={imagemUrl} />
           <ProdutoFormPorcoes />
 
           <Painel className="flex flex-col-reverse gap-4 lg:flex-row">
@@ -96,7 +93,7 @@ export function ProdutoForm({
               variant="primary"
               loading={carregando}
             >
-              {atualizar ? "Atualizar Produto" : "Cadastrar Produto"}
+              {textoAcao}
             </CustomButton>
           </Painel>
         </fieldset>

@@ -35,7 +35,7 @@ export function ProdutoInfo({ produto }: ProdutoInfoProps) {
               <h3 className="mb-2 font-sans font-medium tracking-widest text-muted-foreground uppercase">
                 Categoria
               </h3>
-              <p className="wrap-break-words">{produto.categoria}</p>
+              <p className="wrap-break-words">{produto.categoria.nome}</p>
             </div>
 
             <div className="py-4">
@@ -50,7 +50,7 @@ export function ProdutoInfo({ produto }: ProdutoInfoProps) {
         <ProdutoInfoPorcoes porcoes={produto.porcoes} />
       </div>
 
-      <ProdutoInfoAcoes disponivel={produto.disponivel} />
+      <ProdutoInfoAcoes produto={produto} />
     </div>
   )
 }

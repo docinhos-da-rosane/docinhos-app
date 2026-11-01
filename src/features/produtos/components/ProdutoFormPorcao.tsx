@@ -1,6 +1,6 @@
 import { CustomButton, FormInput } from "@/shared/components"
 import { Trash2 } from "lucide-react"
-import type { ProdutoFormData } from "../schemas/produto.schema"
+import type { ProdutoFormValues } from "../schemas/produto.schema"
 
 interface ProdutoFormPorcaoProps {
   index: number
@@ -29,7 +29,7 @@ export function ProdutoFormPorcao({
       </div>
 
       <div className="flex flex-col lg:flex-row lg:gap-6">
-        <FormInput<ProdutoFormData>
+        <FormInput<ProdutoFormValues>
           label="Quantidade (un.)"
           inputMode="numeric"
           name={`porcoes.${index}.quantidade`}
@@ -39,7 +39,7 @@ export function ProdutoFormPorcao({
           maxLength={5}
         />
 
-        <FormInput<ProdutoFormData>
+        <FormInput<ProdutoFormValues>
           label="Preço (R$)"
           inputMode="decimal"
           name={`porcoes.${index}.preco`}

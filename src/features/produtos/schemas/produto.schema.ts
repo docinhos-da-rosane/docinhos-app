@@ -30,7 +30,13 @@ export const produtoSchema = z.object({
     .min(VALOR_OBRIGATORIO, "O produto deve ter pelo menos uma porção"),
 })
 
+export const produtoSchemaEdicao = produtoSchema.extend({
+  imagem: produtoImagemSchema.optional(),
+})
+
 export type ProdutoFormData = z.input<typeof produtoSchema>
+export type ProdutoFormDataEdicao = z.input<typeof produtoSchemaEdicao>
+export type ProdutoFormValues = ProdutoFormData | ProdutoFormDataEdicao
 
 export const produtoValoresPadrao: ProdutoFormData = {
   nome: "",

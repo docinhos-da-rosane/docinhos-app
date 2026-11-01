@@ -15,7 +15,10 @@ export function useProdutoViewModel(id: string = "") {
     id: "",
     nome: "",
     descricao: "",
-    categoria: "",
+    categoria: {
+      id: "",
+      nome: "",
+    },
     disponivel: false,
     imagemUrl: "",
     porcoes: [],

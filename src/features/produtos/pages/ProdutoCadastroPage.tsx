@@ -5,7 +5,7 @@ import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 import { useOpcoesViewModel } from "../view-model/useOpcoesViewModel"
 
 export function ProdutoCadastroPage() {
-  const { cadastrar, carregando: cadastrando } = useCadastroViewModel()
+  const { cadastrar, carregando: cadastrando, methods } = useCadastroViewModel()
   const { categoriasOpcoes, carregando: carregandoCategorias } =
     useOpcoesViewModel()
 
@@ -23,6 +23,7 @@ export function ProdutoCadastroPage() {
           categoriasOpcoes={categoriasOpcoes}
           carregando={cadastrando || carregandoCategorias}
           rotaCancelar={ROTAS_COMPLETAS.ADMIN.PRODUTOS}
+          methods={methods}
           onSubmit={cadastrar}
         />
       </AdminContainer>

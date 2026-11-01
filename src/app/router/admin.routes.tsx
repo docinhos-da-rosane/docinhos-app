@@ -6,6 +6,7 @@ import { LoginPage, RotaProtegida } from "@/features/auth"
 import { estaAutenticado } from "@/shared/services/tokenService"
 import { ProdutoCadastroPage } from "@/features/produtos/pages/ProdutoCadastroPage"
 import { ProdutoDetalhesPage } from "@/features/produtos/pages/ProdutoDetalhesPage"
+import { ProdutoEdicaoPage } from "@/features/produtos/pages/ProdutoEdicaoPage"
 
 export const adminRoutes: RouteObject = {
   path: ROTAS.ADMIN.ROOT,
@@ -43,6 +44,10 @@ export const adminRoutes: RouteObject = {
             {
               path: ROTAS.ADMIN.PRODUTOS_DETALHES,
               Component: ProdutoDetalhesPage,
+            },
+            {
+              path: ROTAS.ADMIN.PRODUTO_EDICAO,
+              Component: ProdutoEdicaoPage,
             },
           ],
         },

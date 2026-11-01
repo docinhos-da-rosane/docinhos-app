@@ -1,12 +1,11 @@
 import { CustomButton, Painel } from "@/shared/components"
 import { useFieldArray, useFormContext } from "react-hook-form"
 import { Plus } from "lucide-react"
-import type { ProdutoFormData } from "../schemas/produto.schema"
+import type { ProdutoFormValues } from "../schemas/produto.schema"
 import { ProdutoFormPorcao } from "./ProdutoFormPorcao"
 
 export function ProdutoFormPorcoes() {
-  const { control } = useFormContext<ProdutoFormData>()
-
+  const { control } = useFormContext<ProdutoFormValues>()
   const { fields, append, remove } = useFieldArray({
     control,
     name: "porcoes",

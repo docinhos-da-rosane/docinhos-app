@@ -28,3 +28,10 @@ export async function buscarProduto(
 export async function cadastrarProduto(data: FormData): Promise<void> {
   await apiProtegida.post("/produtos", data)
 }
+
+export async function atualizarProduto(
+  id: string,
+  data: FormData
+): Promise<void> {
+  await apiProtegida.put(`/produtos/${id}`, data)
+}

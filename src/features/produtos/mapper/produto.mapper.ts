@@ -1,8 +1,14 @@
-import type { CriarProdutoRequest } from "../models/produto.types"
-import type { ProdutoFormData } from "../schemas/produto.schema"
+import type {
+  CriarProdutoRequest,
+  ProdutoDetalhadoResponse,
+} from "../models/produto.types"
+import type {
+  ProdutoFormData,
+  ProdutoFormValues,
+} from "../schemas/produto.schema"
 
 export function toCriarProdutoRequest(
-  dados: ProdutoFormData
+  dados: ProdutoFormValues
 ): CriarProdutoRequest {
   return {
     nome: dados.nome,
@@ -15,12 +21,15 @@ export function toCriarProdutoRequest(
   }
 }
 
-export function toCriarProdutoFormData(dados: ProdutoFormData): FormData {
+export function toCriarFormData(dados: ProdutoFormValues): FormData {
   const formData = new FormData()
 
   const produto = toCriarProdutoRequest(dados)
 
-  formData.append("imagem", dados.imagem as Blob)
+  if (dados.imagem) {
+    formData.append("imagem", dados.imagem as Blob)
+  }
+
   formData.append(
     "produto",
     new Blob([JSON.stringify(produto)], {
@@ -29,4 +38,19 @@ export function toCriarProdutoFormData(dados: ProdutoFormData): FormData {
   )
 
   return formData
+}
+
+export function toCriarProdutoFormData(
+  dados: ProdutoDetalhadoResponse
+): ProdutoFormData {
+  return {
+    nome: dados.nome,
+    descricao: dados.descricao,
+    categoriaId: dados.categoria.id,
+    imagem: undefined,
+    porcoes: dados.porcoes.map((porcao) => ({
+      quantidade: String(porcao.quantidade),
+      preco: String(porcao.preco).replace(",", "."),
+    })),
+  }
 }

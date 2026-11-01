@@ -17,10 +17,15 @@ export interface ProdutoDetalhadoResponse {
   id: string
   nome: string
   descricao: string
-  categoria: string
+  categoria: CategoriaResponse
   disponivel: boolean
   imagemUrl: string
   porcoes: PorcaoResponse[]
+}
+
+export interface CategoriaResponse {
+  id: string
+  nome: string
 }
 
 export interface PorcaoResponse {

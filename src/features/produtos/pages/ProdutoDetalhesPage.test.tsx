@@ -138,7 +138,9 @@ describe(ProdutoDetalhesPage.name, () => {
 
     await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
     expect(screen.getByText(PRODUTO_DETALHADO.descricao)).toBeInTheDocument()
-    expect(screen.getByText(PRODUTO_DETALHADO.categoria)).toBeInTheDocument()
+    expect(
+      screen.getByText(PRODUTO_DETALHADO.categoria.nome)
+    ).toBeInTheDocument()
     expect(screen.getByText("Disponível")).toBeInTheDocument()
     expect(screen.queryByText("Disponibilidade")).toBeInTheDocument()
 

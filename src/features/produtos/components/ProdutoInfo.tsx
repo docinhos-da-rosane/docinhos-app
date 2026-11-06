@@ -2,12 +2,17 @@ import { Painel } from "@/shared/components"
 import type { ProdutoDetalhadoResponse } from "../models/produto.types"
 import { ProdutoInfoAcoes } from "./ProdutoInfoAcoes"
 import { ProdutoInfoPorcoes } from "./ProdutoInfoPorcoes"
+import type { AcaoConfirmarDialog } from "@/shared/models/acao.type"
 
 interface ProdutoInfoProps {
   produto: ProdutoDetalhadoResponse
+  acaoDisponibilidade: AcaoConfirmarDialog
 }
 
-export function ProdutoInfo({ produto }: ProdutoInfoProps) {
+export function ProdutoInfo({
+  produto,
+  acaoDisponibilidade,
+}: ProdutoInfoProps) {
   return (
     <div className="grid w-full grid-cols-1 items-start gap-5 lg:grid-cols-2 lg:gap-6">
       <div className="flex aspect-4/3 w-full items-center justify-center overflow-hidden rounded-2xl border-2 border-border bg-muted/50 lg:col-start-1 lg:row-start-1">
@@ -50,7 +55,10 @@ export function ProdutoInfo({ produto }: ProdutoInfoProps) {
         <ProdutoInfoPorcoes porcoes={produto.porcoes} />
       </div>
 
-      <ProdutoInfoAcoes produto={produto} />
+      <ProdutoInfoAcoes
+        produto={produto}
+        acaoDisponibilidade={acaoDisponibilidade}
+      />
     </div>
   )
 }

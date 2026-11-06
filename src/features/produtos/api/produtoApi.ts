@@ -35,3 +35,10 @@ export async function atualizarProduto(
 ): Promise<void> {
   await apiProtegida.put(`/produtos/${id}`, data)
 }
+
+export async function alterarDisponibilidadeProduto(
+  id: string,
+  disponivel: boolean
+): Promise<void> {
+  await apiProtegida.patch(`/produtos/${id}/disponibilidade`, { disponivel })
+}

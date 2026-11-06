@@ -7,7 +7,7 @@ import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 export function ProdutoDetalhesPage() {
   const { id } = useParams()
-  const { produto, carregando } = useProdutoViewModel(id)
+  const { produto, carregando, acaoDisponibilidade } = useProdutoViewModel(id)
 
   return (
     <>
@@ -20,7 +20,10 @@ export function ProdutoDetalhesPage() {
         textoVoltar="Voltar para produtos"
       >
         <div className="w-full max-w-7xl">
-          <ProdutoInfo produto={produto} />
+          <ProdutoInfo
+            produto={produto}
+            acaoDisponibilidade={acaoDisponibilidade}
+          />
         </div>
       </AdminContainer>
     </>

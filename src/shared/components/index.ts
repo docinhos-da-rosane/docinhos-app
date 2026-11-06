@@ -26,3 +26,6 @@ export { AdminIcon } from "./icon/AdminIcon"
 // Loading
 export { PageLoading } from "./loading/PageLoading"
 export { InlineLoading } from "./loading/InlineLoading"
+
+// Dialog
+export { ConfirmarDialog } from "./dialog/ConfirmarDialog"

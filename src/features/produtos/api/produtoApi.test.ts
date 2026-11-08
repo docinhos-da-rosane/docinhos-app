@@ -7,6 +7,7 @@ import {
   buscarProdutos,
   cadastrarProduto,
   atualizarProduto,
+  alterarDisponibilidadeProduto,
   TAMANHO_PAGINA_PRODUTOS,
 } from "./produtoApi"
 import type {
@@ -20,6 +21,7 @@ vi.mock("@/shared/lib/api.config", () => ({
     get: vi.fn(),
     post: vi.fn(),
     put: vi.fn(),
+    patch: vi.fn(),
   },
 }))
 
@@ -117,5 +119,30 @@ describe("produtoApi", () => {
       dados
     )
     expect(apiProtegida.put).toHaveBeenCalledTimes(1)
+  })
+
+  it.each([true, false])(
+    "deve alterar explicitamente a disponibilidade para %s",
+    async (disponivel) => {
+      vi.mocked(apiProtegida.patch).mockResolvedValue({ status: 204 } as any)
+
+      await expect(
+        alterarDisponibilidadeProduto(PRODUTO_DETALHADO.id, disponivel)
+      ).resolves.toBeUndefined()
+
+      expect(apiProtegida.patch).toHaveBeenCalledWith(
+        `/produtos/${PRODUTO_DETALHADO.id}/disponibilidade`,
+        { disponivel }
+      )
+    }
+  )
+
+  it("deve propagar falhas ao alterar a disponibilidade", async () => {
+    const erro = new Error("Falha ao alterar disponibilidade")
+    vi.mocked(apiProtegida.patch).mockRejectedValue(erro)
+
+    await expect(
+      alterarDisponibilidadeProduto(PRODUTO_DETALHADO.id, false)
+    ).rejects.toThrow(erro.message)
   })
 })

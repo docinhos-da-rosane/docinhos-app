@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from "@testing-library/react"
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react"
 import { Link, Route, Routes, useLocation } from "react-router-dom"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
@@ -6,17 +12,19 @@ import { createQueryMemoryRouterWrapper } from "@/test/createQueryMemoryRouterWr
 import { CodeError } from "@/shared/errors/error.enum"
 import { montarErroApp } from "@/shared/errors/errorService"
 import { toast } from "sonner"
-import { buscarProduto } from "../api/produtoApi"
+import { alterarDisponibilidadeProduto, buscarProduto } from "../api/produtoApi"
 import { ProdutoDetalhesPage } from "./ProdutoDetalhesPage"
 import { PRODUTO_DETALHADO } from "@/test/mocks/produtoMocks"
 
 vi.mock("../api/produtoApi", () => ({
   buscarProduto: vi.fn(),
+  alterarDisponibilidadeProduto: vi.fn(),
 }))
 
 vi.mock("sonner", () => ({
   toast: {
     error: vi.fn(),
+    success: vi.fn(),
   },
 }))
 
@@ -155,5 +163,112 @@ describe(ProdutoDetalhesPage.name, () => {
     expect(itens[1]).toHaveTextContent(/R\$\s?85,00/)
     expect(itens[2]).toHaveTextContent("50 unidades")
     expect(itens[2]).toHaveTextContent(/R\$\s?155,00/)
+  })
+
+  it("deve abrir o Dialog de confirmação, cancelar e não envia o PATCH", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue(PRODUTO_DETALHADO)
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Marcar como indisponível" })
+    )
+    expect(screen.getByRole("dialog")).toHaveTextContent(
+      "Deseja marcar este produto como indisponível?"
+    )
+    expect(alterarDisponibilidadeProduto).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancelar" }))
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    )
+    expect(alterarDisponibilidadeProduto).not.toHaveBeenCalled()
+  })
+
+  it("deve manter o status durante o envio e atualizar após o PATCH 204", async () => {
+    let resolver!: () => void
+    vi.mocked(buscarProduto)
+      .mockResolvedValueOnce(PRODUTO_DETALHADO)
+      .mockResolvedValueOnce({ ...PRODUTO_DETALHADO, disponivel: false })
+    vi.mocked(alterarDisponibilidadeProduto).mockImplementation(
+      () =>
+        new Promise<void>((resolve) => {
+          resolver = resolve
+        })
+    )
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Marcar como indisponível" })
+    )
+    fireEvent.click(screen.getByRole("button", { name: "Confirmar" }))
+
+    await waitFor(() =>
+      expect(alterarDisponibilidadeProduto).toHaveBeenCalledWith(
+        PRODUTO_DETALHADO.id,
+        false
+      )
+    )
+    expect(
+      screen.getByRole("button", {
+        name: "Marcar como indisponível",
+        hidden: true,
+      })
+    ).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: "Confirmar" })).toBeDisabled()
+    expect(screen.getByRole("button", { name: "Cancelar" })).toBeDisabled()
+    fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" })
+    expect(screen.getByRole("dialog")).toBeInTheDocument()
+
+    resolver()
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    )
+    expect(toast.success).toHaveBeenCalledWith(
+      "Produto atualizado com sucesso!"
+    )
+    expect(
+      await screen.findByRole("button", { name: "Marcar como disponível" })
+    ).toBeInTheDocument()
+  })
+
+  it("deve apresentar a ação e a confirmação para disponibilizar produto indisponível", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue({
+      ...PRODUTO_DETALHADO,
+      disponivel: false,
+    })
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Marcar como disponível" })
+    )
+    expect(screen.getByRole("dialog")).toHaveTextContent(
+      "Deseja marcar este produto como disponível?"
+    )
+    expect(alterarDisponibilidadeProduto).not.toHaveBeenCalled()
+  })
+
+  it("deve fechar o Dialog, preservar o status e notificar erro padrão quando o PATCH falha", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue(PRODUTO_DETALHADO)
+    vi.mocked(alterarDisponibilidadeProduto).mockRejectedValue(
+      erroApi(500, CodeError.ERRO_INTERNO)
+    )
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Marcar como indisponível" })
+    )
+    fireEvent.click(screen.getByRole("button", { name: "Confirmar" }))
+
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    )
+    expect(screen.getByText("Disponível")).toBeInTheDocument()
+    expect(toast.error).toHaveBeenCalledWith(
+      montarErroApp(CodeError.ERRO_INTERNO).mensagem
+    )
   })
 })

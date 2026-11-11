@@ -7,7 +7,8 @@ import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 export function ProdutoDetalhesPage() {
   const { id } = useParams()
-  const { produto, carregando, acaoDisponibilidade } = useProdutoViewModel(id)
+  const { produto, carregando, acaoDisponibilidade, acaoExclusao } =
+    useProdutoViewModel(id)
 
   return (
     <>
@@ -23,6 +24,7 @@ export function ProdutoDetalhesPage() {
           <ProdutoInfo
             produto={produto}
             acaoDisponibilidade={acaoDisponibilidade}
+            acaoExclusao={acaoExclusao}
           />
         </div>
       </AdminContainer>

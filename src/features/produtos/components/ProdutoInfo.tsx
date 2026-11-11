@@ -7,11 +7,13 @@ import type { AcaoConfirmarDialog } from "@/shared/models/acao.type"
 interface ProdutoInfoProps {
   produto: ProdutoDetalhadoResponse
   acaoDisponibilidade: AcaoConfirmarDialog
+  acaoExclusao: AcaoConfirmarDialog
 }
 
 export function ProdutoInfo({
   produto,
   acaoDisponibilidade,
+  acaoExclusao,
 }: ProdutoInfoProps) {
   return (
     <div className="grid w-full grid-cols-1 items-start gap-5 lg:grid-cols-2 lg:gap-6">
@@ -58,6 +60,7 @@ export function ProdutoInfo({
       <ProdutoInfoAcoes
         produto={produto}
         acaoDisponibilidade={acaoDisponibilidade}
+        acaoExclusao={acaoExclusao}
       />
     </div>
   )

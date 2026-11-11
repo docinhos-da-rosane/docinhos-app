@@ -12,13 +12,20 @@ import { createQueryMemoryRouterWrapper } from "@/test/createQueryMemoryRouterWr
 import { CodeError } from "@/shared/errors/error.enum"
 import { montarErroApp } from "@/shared/errors/errorService"
 import { toast } from "sonner"
-import { alterarDisponibilidadeProduto, buscarProduto } from "../api/produtoApi"
+import {
+  alterarDisponibilidadeProduto,
+  buscarProduto,
+  buscarProdutos,
+  excluirProduto,
+} from "../api/produtoApi"
 import { ProdutoDetalhesPage } from "./ProdutoDetalhesPage"
-import { PRODUTO_DETALHADO } from "@/test/mocks/produtoMocks"
+import { PAGINA_INICIAL, PRODUTO_DETALHADO } from "@/test/mocks/produtoMocks"
 
 vi.mock("../api/produtoApi", () => ({
   buscarProduto: vi.fn(),
+  buscarProdutos: vi.fn(),
   alterarDisponibilidadeProduto: vi.fn(),
+  excluirProduto: vi.fn(),
 }))
 
 vi.mock("sonner", () => ({
@@ -267,6 +274,116 @@ describe(ProdutoDetalhesPage.name, () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
     )
     expect(screen.getByText("Disponível")).toBeInTheDocument()
+    expect(toast.error).toHaveBeenCalledWith(
+      montarErroApp(CodeError.ERRO_INTERNO).mensagem
+    )
+  })
+
+  it("deve abrir e cancelar exclusão para produto sem requisitar DELETE", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue({
+      ...PRODUTO_DETALHADO,
+    })
+
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(screen.getByRole("button", { name: "Excluir produto" }))
+
+    const dialog = screen.getByRole("dialog", { name: "Confirmação" })
+    expect(dialog).toHaveTextContent(
+      "Deseja excluir este produto? Essa ação não poderá ser desfeita."
+    )
+    expect(screen.getByRole("button", { name: "Cancelar" })).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Confirmar" })
+    ).toBeInTheDocument()
+    expect(excluirProduto).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole("button", { name: "Cancelar" }))
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    )
+    expect(screen.getByTestId("test-location")).toHaveTextContent(
+      "/admin/produtos/" + PRODUTO_DETALHADO.id
+    )
+    expect(excluirProduto).not.toHaveBeenCalled()
+  })
+
+  it("deve confirmar exclusão e retorna à primeira página", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue(PRODUTO_DETALHADO)
+    vi.mocked(excluirProduto).mockResolvedValue(undefined)
+
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(screen.getByRole("button", { name: "Excluir produto" }))
+    const dialog = await screen.findByRole("dialog", { name: "Confirmação" })
+    expect(dialog).toHaveTextContent(
+      "Deseja excluir este produto? Essa ação não poderá ser desfeita."
+    )
+    fireEvent.click(within(dialog).getByRole("button", { name: "Confirmar" }))
+
+    await waitFor(() =>
+      expect(excluirProduto).toHaveBeenCalledWith(PRODUTO_DETALHADO.id)
+    )
+    expect(await screen.findByText("Abrir detalhes")).toBeInTheDocument()
+    expect(screen.queryByText(PRODUTO_DETALHADO.nome)).not.toBeInTheDocument()
+    expect(screen.getByTestId("test-location")).toHaveTextContent(
+      "/admin/produtos"
+    )
+    expect(toast.success).toHaveBeenCalledWith("Produto excluído com sucesso!")
+  })
+
+  it("deve lidar com erro 404 ao excluir um produto", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue(PRODUTO_DETALHADO)
+    vi.mocked(excluirProduto).mockRejectedValue(
+      erroApi(404, CodeError.NAO_ENCONTRADO)
+    )
+    vi.mocked(buscarProdutos).mockResolvedValue({
+      ...PAGINA_INICIAL,
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+    })
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(screen.getByRole("button", { name: "Excluir produto" }))
+    const dialog = await screen.findByRole("dialog", { name: "Confirmação" })
+    fireEvent.click(within(dialog).getByRole("button", { name: "Confirmar" }))
+
+    expect(await screen.findByText("Abrir detalhes")).toBeInTheDocument()
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    expect(screen.getByTestId("test-location")).toHaveTextContent(
+      "/admin/produtos"
+    )
+    expect(toast.error).toHaveBeenCalledWith(
+      montarErroApp(CodeError.NAO_ENCONTRADO).mensagem
+    )
+    expect(buscarProduto).toHaveBeenCalledTimes(2)
+  })
+
+  it("deve lidar com erro 500 ao excluir um produto", async () => {
+    vi.mocked(buscarProduto).mockResolvedValue(PRODUTO_DETALHADO)
+    vi.mocked(excluirProduto).mockRejectedValue(
+      erroApi(500, CodeError.ERRO_INTERNO)
+    )
+    renderRotaDetalhes()
+
+    await screen.findByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    fireEvent.click(screen.getByRole("button", { name: "Excluir produto" }))
+    const dialog = await screen.findByRole("dialog", { name: "Confirmação" })
+    fireEvent.click(within(dialog).getByRole("button", { name: "Confirmar" }))
+
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
+    )
+    expect(screen.getByTestId("test-location")).toHaveTextContent(
+      "/admin/produtos/" + PRODUTO_DETALHADO.id
+    )
+    expect(
+      screen.getByRole("heading", { name: PRODUTO_DETALHADO.nome })
+    ).toBeInTheDocument()
     expect(toast.error).toHaveBeenCalledWith(
       montarErroApp(CodeError.ERRO_INTERNO).mensagem
     )

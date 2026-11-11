@@ -17,6 +17,8 @@ const mocks = vi.hoisted(() => ({
   },
   mutateAsync: vi.fn(),
   isPending: false,
+  excluirMutateAsync: vi.fn(),
+  exclusaoIsPending: false,
 }))
 
 vi.mock("../hooks/useBuscaProduto", () => ({
@@ -30,6 +32,13 @@ vi.mock("../hooks/useAlterarDisponibilidadeProduto", () => ({
   }),
 }))
 
+vi.mock("../hooks/useExcluirProduto", () => ({
+  useExcluirProduto: () => ({
+    mutateAsync: mocks.excluirMutateAsync,
+    isPending: mocks.exclusaoIsPending,
+  }),
+}))
+
 vi.mock("sonner", () => ({ toast: { error: vi.fn(), success: vi.fn() } }))
 
 describe(useProdutoViewModel.name, () => {
@@ -40,7 +49,9 @@ describe(useProdutoViewModel.name, () => {
     mocks.query.isError = false
     mocks.query.error = null
     mocks.isPending = false
+    mocks.exclusaoIsPending = false
     mocks.mutateAsync.mockResolvedValue(undefined)
+    mocks.excluirMutateAsync.mockResolvedValue(undefined)
   })
 
   it("deve retornar os dados vazios enquanto os detalhes carregam", () => {
@@ -55,6 +66,7 @@ describe(useProdutoViewModel.name, () => {
     expect(result.current.carregando).toBe(true)
     expect(result.current.produto.nome).toBe("")
     expect(result.current.acaoDisponibilidade.aberto).toBe(false)
+    expect(result.current.acaoExclusao.aberto).toBe(false)
   })
 
   it.each([
@@ -122,5 +134,28 @@ describe(useProdutoViewModel.name, () => {
     )
     expect(result.current.produto.disponivel).toBe(PRODUTO_DETALHADO.disponivel)
     expect(result.current.acaoDisponibilidade.aberto).toBe(false)
+  })
+
+  it("deve abrir e cancelar exclusão do produto", () => {
+    mocks.query.data = PRODUTO_DETALHADO
+    const Wrapper = createQueryMemoryRouterWrapper()
+
+    const { result } = renderHook(
+      () => useProdutoViewModel(PRODUTO_DETALHADO.id),
+      { wrapper: Wrapper }
+    )
+
+    act(() => result.current.acaoExclusao.onAbrir())
+
+    expect(result.current.acaoExclusao.aberto).toBe(true)
+    expect(result.current.acaoDisponibilidade.aberto).toBe(false)
+    expect(result.current.acaoExclusao.texto).toBe(
+      "Deseja excluir este produto? Essa ação não poderá ser desfeita."
+    )
+
+    act(() => result.current.acaoExclusao.onFechar())
+
+    expect(result.current.acaoExclusao.aberto).toBe(false)
+    expect(mocks.excluirMutateAsync).not.toHaveBeenCalled()
   })
 })

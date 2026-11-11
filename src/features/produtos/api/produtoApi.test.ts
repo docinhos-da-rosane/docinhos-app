@@ -8,6 +8,7 @@ import {
   cadastrarProduto,
   atualizarProduto,
   alterarDisponibilidadeProduto,
+  excluirProduto,
   TAMANHO_PAGINA_PRODUTOS,
 } from "./produtoApi"
 import type {
@@ -22,6 +23,7 @@ vi.mock("@/shared/lib/api.config", () => ({
     post: vi.fn(),
     put: vi.fn(),
     patch: vi.fn(),
+    delete: vi.fn(),
   },
 }))
 
@@ -144,5 +146,25 @@ describe("produtoApi", () => {
     await expect(
       alterarDisponibilidadeProduto(PRODUTO_DETALHADO.id, false)
     ).rejects.toThrow(erro.message)
+  })
+
+  it("deve excluir pelo id com sucesso", async () => {
+    vi.mocked(apiProtegida.delete).mockResolvedValue({ status: 204 } as any)
+
+    await expect(excluirProduto(PRODUTO_DETALHADO.id)).resolves.toBeUndefined()
+
+    expect(apiProtegida.delete).toHaveBeenCalledWith(
+      `/produtos/${PRODUTO_DETALHADO.id}`
+    )
+    expect(apiProtegida.delete).toHaveBeenCalledTimes(1)
+  })
+
+  it("deve propagar falhas ao excluir o produto", async () => {
+    const erro = new Error("Falha ao excluir produto")
+    vi.mocked(apiProtegida.delete).mockRejectedValue(erro)
+
+    await expect(excluirProduto(PRODUTO_DETALHADO.id)).rejects.toThrow(
+      erro.message
+    )
   })
 })

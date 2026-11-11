@@ -45,8 +45,10 @@ export function ConfirmarDialog({
     <Dialog open={aberto} onOpenChange={alterarAbertura}>
       <DialogContent showCloseButton={!carregando}>
         <DialogHeader className="flex flex-col gap-4 px-4 py-2">
-          <DialogTitle className="text-lg font-bold">Confirmação</DialogTitle>
-          <DialogDescription className="text-md font-semibold">
+          <DialogTitle className="text-lg font-bold md:text-2xl">
+            Confirmação
+          </DialogTitle>
+          <DialogDescription className="text-md md:text-[16px]">
             {texto}
           </DialogDescription>
         </DialogHeader>
@@ -56,14 +58,14 @@ export function ConfirmarDialog({
             variant="outline-secondary"
             onClick={cancelar}
             disabled={carregando}
-            className="text-md p-2"
+            className="text-md p-2 font-semibold tracking-wide md:px-6 md:text-lg"
           >
             Cancelar
           </CustomButton>
           <CustomButton
             onClick={confirmar}
             loading={carregando}
-            className="text-md p-2"
+            className="text-md p-2 font-semibold tracking-wide md:px-6 md:text-lg"
           >
             Confirmar
           </CustomButton>

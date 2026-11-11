@@ -42,3 +42,7 @@ export async function alterarDisponibilidadeProduto(
 ): Promise<void> {
   await apiProtegida.patch(`/produtos/${id}/disponibilidade`, { disponivel })
 }
+
+export async function excluirProduto(id: string): Promise<void> {
+  await apiProtegida.delete(`/produtos/${id}`)
+}

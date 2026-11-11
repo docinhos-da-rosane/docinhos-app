@@ -7,11 +7,13 @@ import type { AcaoConfirmarDialog } from "@/shared/models/acao.type"
 interface ProdutoInfoAcoesProps {
   produto: ProdutoDetalhadoResponse
   acaoDisponibilidade: AcaoConfirmarDialog
+  acaoExclusao: AcaoConfirmarDialog
 }
 
 export function ProdutoInfoAcoes({
   produto,
   acaoDisponibilidade,
+  acaoExclusao,
 }: ProdutoInfoAcoesProps) {
   return (
     <Painel className="flex min-h-full flex-col gap-4 lg:col-start-1 lg:row-start-2">
@@ -31,7 +33,11 @@ export function ProdutoInfoAcoes({
           ? "Marcar como indisponível"
           : "Marcar como disponível"}
       </CustomButton>
-      <CustomButton variant="danger" className="px-5 py-3 text-sm">
+      <CustomButton
+        variant="danger"
+        className="px-5 py-3 text-sm"
+        onClick={acaoExclusao.onAbrir}
+      >
         Excluir produto
       </CustomButton>
       <ConfirmarDialog
@@ -43,6 +49,16 @@ export function ProdutoInfoAcoes({
         onCancelar={acaoDisponibilidade.onFechar}
         onConfirmar={acaoDisponibilidade.onConfirmar}
         carregando={acaoDisponibilidade.carregando}
+      />
+      <ConfirmarDialog
+        aberto={acaoExclusao.aberto}
+        onOpenChange={(aberto: boolean) => {
+          if (!aberto) acaoExclusao.onFechar()
+        }}
+        texto={acaoExclusao.texto}
+        onCancelar={acaoExclusao.onFechar}
+        onConfirmar={acaoExclusao.onConfirmar}
+        carregando={acaoExclusao.carregando}
       />
     </Painel>
   )

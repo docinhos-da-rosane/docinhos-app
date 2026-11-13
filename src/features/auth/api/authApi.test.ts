@@ -28,6 +28,6 @@ describe(login.name, () => {
     } as any)
 
     await expect(login(dados)).resolves.toEqual(resposta)
-    expect(apiPublica.post).toHaveBeenCalledWith("/auth/login", dados)
+    expect(apiPublica.post).toHaveBeenCalledWith("/admin/auth/login", dados)
   })
 })

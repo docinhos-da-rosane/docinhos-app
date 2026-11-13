@@ -52,6 +52,8 @@ const PAGINA: PageResponse<ProdutoResumoResponse> = {
   totalPages: 1,
 }
 
+const URL_ADMIN_PRODUTO = "/admin/produtos"
+
 describe("produtoApi", () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -65,7 +67,7 @@ describe("produtoApi", () => {
     expect(resposta).toEqual(PAGINA)
     expect(resposta.content).toEqual(PRODUTOS)
 
-    expect(apiProtegida.get).toHaveBeenCalledWith("/produtos", {
+    expect(apiProtegida.get).toHaveBeenCalledWith(`${URL_ADMIN_PRODUTO}`, {
       params: { page: 0, size: 6 },
     })
     expect(apiProtegida.get).toHaveBeenCalledTimes(1)
@@ -76,7 +78,7 @@ describe("produtoApi", () => {
 
     await buscarProdutos(2)
 
-    expect(apiProtegida.get).toHaveBeenCalledWith("/produtos", {
+    expect(apiProtegida.get).toHaveBeenCalledWith(`${URL_ADMIN_PRODUTO}`, {
       params: { page: 2, size: TAMANHO_PAGINA_PRODUTOS },
     })
   })
@@ -90,7 +92,7 @@ describe("produtoApi", () => {
 
     expect(resposta).toEqual(PRODUTO_DETALHADO)
     expect(apiProtegida.get).toHaveBeenCalledWith(
-      "/produtos/" + PRODUTO_DETALHADO.id
+      `${URL_ADMIN_PRODUTO}/${PRODUTO_DETALHADO.id}`
     )
     expect(apiProtegida.get).toHaveBeenCalledTimes(1)
   })
@@ -103,7 +105,10 @@ describe("produtoApi", () => {
     vi.mocked(apiProtegida.post).mockResolvedValue({} as any)
 
     await expect(cadastrarProduto(dados)).resolves.toBeUndefined()
-    expect(apiProtegida.post).toHaveBeenCalledWith("/produtos", dados)
+    expect(apiProtegida.post).toHaveBeenCalledWith(
+      `${URL_ADMIN_PRODUTO}`,
+      dados
+    )
   })
 
   it("deve atualizar o produto pelo id", async () => {
@@ -117,7 +122,7 @@ describe("produtoApi", () => {
     ).resolves.toBeUndefined()
 
     expect(apiProtegida.put).toHaveBeenCalledWith(
-      `/produtos/${PRODUTO_DETALHADO.id}`,
+      `${URL_ADMIN_PRODUTO}/${PRODUTO_DETALHADO.id}`,
       dados
     )
     expect(apiProtegida.put).toHaveBeenCalledTimes(1)
@@ -133,7 +138,7 @@ describe("produtoApi", () => {
       ).resolves.toBeUndefined()
 
       expect(apiProtegida.patch).toHaveBeenCalledWith(
-        `/produtos/${PRODUTO_DETALHADO.id}/disponibilidade`,
+        `${URL_ADMIN_PRODUTO}/${PRODUTO_DETALHADO.id}/disponibilidade`,
         { disponivel }
       )
     }
@@ -154,7 +159,7 @@ describe("produtoApi", () => {
     await expect(excluirProduto(PRODUTO_DETALHADO.id)).resolves.toBeUndefined()
 
     expect(apiProtegida.delete).toHaveBeenCalledWith(
-      `/produtos/${PRODUTO_DETALHADO.id}`
+      `${URL_ADMIN_PRODUTO}/${PRODUTO_DETALHADO.id}`
     )
     expect(apiProtegida.delete).toHaveBeenCalledTimes(1)
   })

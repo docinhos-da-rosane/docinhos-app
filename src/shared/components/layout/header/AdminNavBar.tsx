@@ -1,8 +1,8 @@
 import { useLogoutViewModel } from "@/features/auth"
-import { AdminIcon, CustomButton } from "@/shared/components"
+import { CustomButton } from "@/shared/components"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
-import { LogOut } from "lucide-react"
-import { Link } from "react-router-dom"
+import { LogOut, UserRound } from "lucide-react"
+import { Logo } from "../../logo/Logo"
 
 export function AdminNavBar() {
   const { sair } = useLogoutViewModel()
@@ -10,19 +10,11 @@ export function AdminNavBar() {
   return (
     <header className="flex justify-center border-b bg-white p-4">
       <div className="flex w-full items-center justify-between gap-3 lg:max-w-7xl">
-        <div className="flex items-center gap-3">
-          <Link to={ROTAS_COMPLETAS.ADMIN.PRODUTOS}>
-            <AdminIcon size={22} />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold">
-              Docinhos da <span className="text-primary italic">Rosane</span>
-            </h1>
-            <p className="text-[10px] text-muted-foreground uppercase">
-              área dministrativa
-            </p>
-          </div>
-        </div>
+        <Logo
+          rota={ROTAS_COMPLETAS.ADMIN.PRODUTOS}
+          descricao="área administrativa"
+          icon={<UserRound size={22} color="white" />}
+        />
 
         <CustomButton
           onClick={sair}

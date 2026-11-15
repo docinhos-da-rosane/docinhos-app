@@ -1,5 +1,3 @@
-export { HealthCheck } from "./health-check/HealthCheck"
-
 // Sessao
 export { SessaoWatcher } from "./sessao/SessaoWatcher"
 

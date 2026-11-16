@@ -1,4 +1,4 @@
-import { AdminContainer, PageLoading } from "@/shared/components"
+import { PageContainer, PageLoading } from "@/shared/components"
 import { ProdutoForm } from "../components/ProdutoForm"
 import { useCadastroViewModel } from "../view-model/useCadastroViewModel"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
@@ -13,7 +13,7 @@ export function ProdutoCadastroPage() {
     <>
       {carregandoCategorias && <PageLoading />}
 
-      <AdminContainer
+      <PageContainer
         titulo="Cadastrar Produto"
         subtitulo="Preencha as informações do novo produto."
         rotaVoltar={ROTAS_COMPLETAS.ADMIN.PRODUTOS}
@@ -26,7 +26,7 @@ export function ProdutoCadastroPage() {
           methods={methods}
           onSubmit={cadastrar}
         />
-      </AdminContainer>
+      </PageContainer>
     </>
   )
 }

@@ -3,7 +3,7 @@ export { SessaoWatcher } from "./sessao/SessaoWatcher"
 
 // Layout
 export { Painel } from "./layout/painel/Painel"
-export { AdminContainer } from "./layout/admin-container/AdminContainer"
+export { PageContainer } from "./layout/page-container/PageContainer"
 
 // Header
 export { AdminNavBar } from "./layout/header/AdminNavBar"

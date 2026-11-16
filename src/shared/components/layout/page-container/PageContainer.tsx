@@ -2,7 +2,7 @@ import { cn } from "@/shared/lib/utils"
 import type { ComponentProps, ReactNode } from "react"
 import { VoltarButton } from "../../button/VoltarButton"
 
-interface AdminContainerProps extends ComponentProps<"section"> {
+interface PageContainerProps extends ComponentProps<"section"> {
   titulo: string
   subtitulo: string
   rotaVoltar?: string
@@ -10,7 +10,7 @@ interface AdminContainerProps extends ComponentProps<"section"> {
   acoes?: ReactNode
 }
 
-export function AdminContainer({
+export function PageContainer({
   titulo,
   subtitulo,
   rotaVoltar,
@@ -19,7 +19,7 @@ export function AdminContainer({
   children,
   acoes,
   ...props
-}: AdminContainerProps) {
+}: PageContainerProps) {
   return (
     <section {...props} className={cn("min-h-screen", className)}>
       <header className="flex justify-center border-b bg-white p-4 lg:p-6">

@@ -1,10 +1,10 @@
 import type {
   CriarProdutoRequest,
-  PageResponse,
   ProdutoDetalhadoResponse,
   ProdutoResumoResponse,
 } from "@/features/produtos/models/produto.types"
 import type { ProdutoFormData } from "@/features/produtos/schemas/produto.schema"
+import type { PageResponse } from "@/shared/models/page.type"
 
 export const PRODUTO_ID = "a82427ea-22a7-4264-9719-56683cd01295"
 

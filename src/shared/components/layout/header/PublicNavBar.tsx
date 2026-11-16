@@ -25,7 +25,7 @@ const linkClassName =
 
 export function PublicNavBar() {
   return (
-    <header className="flex justify-center border-b bg-background p-4">
+    <header className="flex justify-center border-b bg-white p-4">
       <div className="flex w-full items-center justify-between gap-4 lg:max-w-7xl">
         <Logo
           rota={ROTAS.HOME}

@@ -12,11 +12,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import { createQueryMemoryRouterWrapper } from "@/test/createQueryMemoryRouterWrapper"
 import { toast } from "sonner"
 import { buscarProdutos } from "../api/produtoApi"
-import type {
-  PageResponse,
-  ProdutoResumoResponse,
-} from "../models/produto.types"
+import type { ProdutoResumoResponse } from "../models/produto.types"
 import { ProdutoListaPage } from "./ProdutoListaPage"
+import type { PageResponse } from "@/shared/models/page.type"
 
 vi.mock("../api/produtoApi", () => ({
   buscarProdutos: vi.fn(),

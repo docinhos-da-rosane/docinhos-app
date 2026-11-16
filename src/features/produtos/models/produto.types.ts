@@ -33,14 +33,6 @@ export interface PorcaoResponse {
   preco: number
 }
 
-export interface PageResponse<T> {
-  content: T[]
-  page: number
-  size: number
-  totalElements: number
-  totalPages: number
-}
-
 interface CriarProdutoPorcaoRequest {
   quantidade: number
   preco: number

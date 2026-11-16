@@ -4,6 +4,7 @@ export { SessaoWatcher } from "./sessao/SessaoWatcher"
 // Layout
 export { Painel } from "./layout/painel/Painel"
 export { PageContainer } from "./layout/page-container/PageContainer"
+export { Paginacao } from "./paginacao/Paginacao"
 
 // Header
 export { AdminNavBar } from "./layout/header/AdminNavBar"

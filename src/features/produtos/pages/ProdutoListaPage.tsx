@@ -2,13 +2,13 @@ import {
   PageContainer,
   CustomButton,
   InlineLoading,
+  Paginacao,
   Painel,
 } from "@/shared/components"
 import { Plus } from "lucide-react"
 import { useProdutoListaViewModel } from "../view-model/useProdutoListaViewModel"
 import { ProdutoListaTabela } from "../components/ProdutoListaTabela"
 import { ProdutoListaVazia } from "../components/ProdutoListaVazia"
-import { ProdutoPaginacao } from "../components/ProdutoPaginacao"
 import { InlineError } from "@/shared/components/error/InlineError"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
@@ -53,7 +53,8 @@ export function ProdutoListaPage() {
           )}
         </Painel>
 
-        <ProdutoPaginacao
+        <Paginacao
+          ariaLabel="Paginação de produtos"
           paginaAnteriorDesabilitada={paginaAnteriorDesabilitada}
           proximaPaginaDesabilitada={proximaPaginaDesabilitada}
           onNavegarParaPaginaAnterior={navegarParaPaginaAnterior}

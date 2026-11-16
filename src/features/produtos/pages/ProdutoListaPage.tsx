@@ -1,5 +1,5 @@
 import {
-  AdminContainer,
+  PageContainer,
   CustomButton,
   InlineLoading,
   Painel,
@@ -25,7 +25,7 @@ export function ProdutoListaPage() {
   } = useProdutoListaViewModel()
 
   return (
-    <AdminContainer
+    <PageContainer
       titulo="Produtos"
       subtitulo="Consulte e atualize os produtos do catálogo."
       acoes={
@@ -60,6 +60,6 @@ export function ProdutoListaPage() {
           onNavegarParaProximaPagina={navegarParaProximaPagina}
         />
       </div>
-    </AdminContainer>
+    </PageContainer>
   )
 }

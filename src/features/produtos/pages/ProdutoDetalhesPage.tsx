@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 
-import { AdminContainer, PageLoading } from "@/shared/components"
+import { PageContainer, PageLoading } from "@/shared/components"
 import { ProdutoInfo } from "../components/ProdutoInfo"
 import { useProdutoViewModel } from "../view-model/useProdutoViewModel"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
@@ -14,7 +14,7 @@ export function ProdutoDetalhesPage() {
     <>
       {carregando && <PageLoading />}
 
-      <AdminContainer
+      <PageContainer
         titulo={produto.nome}
         subtitulo="Consulte as informações completas do produto."
         rotaVoltar={ROTAS_COMPLETAS.ADMIN.PRODUTOS}
@@ -27,7 +27,7 @@ export function ProdutoDetalhesPage() {
             acaoExclusao={acaoExclusao}
           />
         </div>
-      </AdminContainer>
+      </PageContainer>
     </>
   )
 }

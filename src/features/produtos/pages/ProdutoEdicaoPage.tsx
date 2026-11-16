@@ -1,4 +1,4 @@
-import { AdminContainer, PageLoading } from "@/shared/components"
+import { PageContainer, PageLoading } from "@/shared/components"
 import { useOpcoesViewModel } from "../view-model/useOpcoesViewModel"
 import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 import { ProdutoForm } from "../components/ProdutoForm"
@@ -23,7 +23,7 @@ export function ProdutoEdicaoPage() {
     <>
       {carregandoPagina ? <PageLoading /> : null}
 
-      <AdminContainer
+      <PageContainer
         titulo="Editar Produto"
         subtitulo="Atualize as informações do produto"
         rotaVoltar={ROTAS_COMPLETAS.ADMIN.PRODUTO_DETALHES(id!)}
@@ -38,7 +38,7 @@ export function ProdutoEdicaoPage() {
           imagemUrl={imagemUrl}
           onSubmit={atualizar}
         />
-      </AdminContainer>
+      </PageContainer>
     </>
   )
 }

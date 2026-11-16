@@ -1,21 +1,23 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-interface ProdutoPaginacaoProps {
+interface PaginacaoProps {
+  ariaLabel: string
   paginaAnteriorDesabilitada: boolean
   proximaPaginaDesabilitada: boolean
   onNavegarParaPaginaAnterior: () => void
   onNavegarParaProximaPagina: () => void
 }
 
-export function ProdutoPaginacao({
+export function Paginacao({
+  ariaLabel,
   paginaAnteriorDesabilitada,
   proximaPaginaDesabilitada,
   onNavegarParaPaginaAnterior,
   onNavegarParaProximaPagina,
-}: ProdutoPaginacaoProps) {
+}: PaginacaoProps) {
   return (
     <nav
-      aria-label="Paginação de produtos"
+      aria-label={ariaLabel}
       className="flex items-center justify-center gap-4 pt-5"
     >
       <button

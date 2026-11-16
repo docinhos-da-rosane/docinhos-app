@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { obterErro } from "@/shared/errors/errorService"
+import { usePaginacao } from "@/shared/hooks/usePaginacao"
 import { useBuscarProdutos } from "../hooks/useBuscaProdutos"
 import type { ProdutoResumoResponse } from "../models/produto.types"
 
@@ -27,9 +28,13 @@ export function useProdutoListaViewModel(): ProdutoListaViewModelResult {
   const totalPages = produtosQuery.data?.totalPages ?? 0
 
   const possuiProdutos = totalElements > 0
-  const paginaAnteriorDesabilitada = carregando || page <= 0 || ocorreuErro
-  const proximaPaginaDesabilitada =
-    carregando || page + 1 >= totalPages || ocorreuErro
+  const paginacao = usePaginacao({
+    page,
+    setPage,
+    totalPages,
+    carregando,
+    ocorreuErro,
+  })
 
   useEffect(() => {
     if (!produtosQuery.isError) {
@@ -40,31 +45,12 @@ export function useProdutoListaViewModel(): ProdutoListaViewModelResult {
     toast.error(erroApp.mensagem)
   }, [produtosQuery.error, produtosQuery.isError])
 
-  function navegarParaPaginaAnterior() {
-    if (paginaAnteriorDesabilitada) {
-      return
-    }
-
-    setPage((paginaAtual) => paginaAtual - 1)
-  }
-
-  function navegarParaProximaPagina() {
-    if (proximaPaginaDesabilitada) {
-      return
-    }
-
-    setPage((paginaAtual) => paginaAtual + 1)
-  }
-
   return {
     page,
     produtos: produtosQuery.data?.content ?? [],
     possuiProdutos,
     carregando,
     ocorreuErro,
-    paginaAnteriorDesabilitada,
-    proximaPaginaDesabilitada,
-    navegarParaPaginaAnterior,
-    navegarParaProximaPagina,
+    ...paginacao,
   }
 }

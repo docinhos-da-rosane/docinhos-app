@@ -11,11 +11,9 @@ import {
   excluirProduto,
   TAMANHO_PAGINA_PRODUTOS,
 } from "./produtoApi"
-import type {
-  PageResponse,
-  ProdutoResumoResponse,
-} from "../models/produto.types"
+import type { ProdutoResumoResponse } from "../models/produto.types"
 import { PRODUTO_DETALHADO } from "@/test/mocks/produtoMocks"
+import type { PageResponse } from "@/shared/models/page.type"
 
 vi.mock("@/shared/lib/api.config", () => ({
   apiProtegida: {

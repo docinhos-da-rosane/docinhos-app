@@ -6,12 +6,10 @@ import { obterErro } from "@/shared/errors/errorService"
 import { toast } from "sonner"
 
 import { buscarProdutos } from "../api/produtoApi"
-import type {
-  PageResponse,
-  ProdutoResumoResponse,
-} from "../models/produto.types"
+import type { ProdutoResumoResponse } from "../models/produto.types"
 import { useProdutoListaViewModel } from "./useProdutoListaViewModel"
 import { PAGINA_INICIAL } from "@/test/mocks/produtoMocks"
+import type { PageResponse } from "@/shared/models/page.type"
 
 vi.mock("../api/produtoApi", () => ({
   buscarProdutos: vi.fn(),

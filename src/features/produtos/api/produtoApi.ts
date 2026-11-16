@@ -1,9 +1,9 @@
 import { apiProtegida } from "@/shared/lib/api.config"
 import type {
-  PageResponse,
   ProdutoDetalhadoResponse,
   ProdutoResumoResponse,
 } from "../models/produto.types"
+import type { PageResponse } from "@/shared/models/page.type"
 
 export const TAMANHO_PAGINA_PRODUTOS = 6
 const URL_ADMIN_PRODUTO = "/admin/produtos"

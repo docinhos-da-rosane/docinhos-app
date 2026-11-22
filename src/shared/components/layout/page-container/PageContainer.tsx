@@ -3,7 +3,8 @@ import type { ComponentProps, ReactNode } from "react"
 import { VoltarButton } from "../../button/VoltarButton"
 
 interface PageContainerProps extends ComponentProps<"section"> {
-  titulo: string
+  titulo?: string
+  tituloPersonalizado?: ReactNode
   subtitulo: string
   rotaVoltar?: string
   textoVoltar?: string
@@ -12,6 +13,7 @@ interface PageContainerProps extends ComponentProps<"section"> {
 
 export function PageContainer({
   titulo,
+  tituloPersonalizado,
   subtitulo,
   rotaVoltar,
   textoVoltar,
@@ -31,9 +33,11 @@ export function PageContainer({
           </div>
           <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h1 className="mb-1 text-3xl font-bold lg:mb-2 lg:text-4xl">
-                {titulo}
-              </h1>
+              {tituloPersonalizado || (
+                <h1 className="mb-1 text-3xl font-bold lg:mb-2 lg:text-4xl">
+                  {titulo}
+                </h1>
+              )}
               <p className="text-muted-foreground">{subtitulo}</p>
             </div>
             {acoes && <div className="flex">{acoes}</div>}

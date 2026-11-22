@@ -1,6 +1,7 @@
 import type { RouteObject } from "react-router"
 import { PublicoLayout } from "../layouts/PublicoLayout"
 import { CatalogoPage, HomePage } from "@/features/catalogo"
+import { ROTAS } from "@/shared/constants/routes"
 
 export const publicoRoutes: RouteObject = {
   path: "/",
@@ -12,7 +13,7 @@ export const publicoRoutes: RouteObject = {
       Component: HomePage,
     },
     {
-      path: "cardapio",
+      path: ROTAS.CATALOGO,
       Component: CatalogoPage,
     },
   ],

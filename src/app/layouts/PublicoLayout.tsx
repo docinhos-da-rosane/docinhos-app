@@ -5,7 +5,6 @@ export function PublicoLayout() {
   return (
     <>
       <PublicNavBar />
-      <h1>Layout publico</h1>
       <main>
         <Outlet />
       </main>

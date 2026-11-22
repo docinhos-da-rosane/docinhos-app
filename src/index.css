@@ -4,6 +4,7 @@
 
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/outfit";
+@import "@fontsource/cousine";
 
 @theme inline {
   /* Tipografia */
@@ -11,6 +12,7 @@
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Outfit Variable", system-ui, sans-serif;
   --font-body: "Outfit Variable", system-ui, sans-serif;
+  --font-mono: "Cousine", monospace;
 
   /* Cores base */
   --color-background: var(--background);

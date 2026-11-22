@@ -4,12 +4,12 @@ import { describe, expect, it } from "vitest"
 
 import { createMemoryRouterWrapper } from "@/test/createMemoryRouterWrapper"
 import { PublicNavBar } from "./PublicNavBar"
-import { ROTAS } from "@/shared/constants/routes"
+import { ROTAS_COMPLETAS } from "@/shared/constants/routes"
 
 const RouterWrapper = createMemoryRouterWrapper()
 
 describe(PublicNavBar.name, () => {
-  it("deve exibir a marca e os links da navegação pública", () => {
+  it("deve exibir os links da navegação pública", () => {
     render(
       <RouterWrapper>
         <PublicNavBar />
@@ -24,10 +24,10 @@ describe(PublicNavBar.name, () => {
     const navigation = screen.getByRole("navigation")
     expect(
       within(navigation).getByRole("link", { name: "Início" })
-    ).toHaveAttribute("href", ROTAS.HOME)
+    ).toHaveAttribute("href", ROTAS_COMPLETAS.HOME)
     expect(
       within(navigation).getByRole("link", { name: "Catálogo" })
-    ).toBeInTheDocument()
+    ).toHaveAttribute("href", ROTAS_COMPLETAS.CATALOGO)
     expect(
       within(navigation).getByRole("link", { name: "Como encomendar" })
     ).toBeInTheDocument()
@@ -43,10 +43,7 @@ describe(PublicNavBar.name, () => {
 
     const menuTrigger = container.querySelector<HTMLElement>(
       '[data-slot="sheet-trigger"]'
-    )
-    if (menuTrigger === null) {
-      throw new Error("O botão para abrir o menu mobile não foi renderizado")
-    }
+    )!
     await user.click(menuTrigger)
 
     const dialog = await screen.findByRole("dialog")

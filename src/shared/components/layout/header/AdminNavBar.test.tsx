@@ -31,7 +31,7 @@ describe(AdminNavBar.name, () => {
 
     expect(screen.getByText("Docinhos da")).toBeInTheDocument()
     expect(screen.getByText("Rosane")).toBeInTheDocument()
-    expect(screen.getByText("área dministrativa")).toBeInTheDocument()
+    expect(screen.getByText("área administrativa")).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Sair" })).toBeInTheDocument()
   })
 

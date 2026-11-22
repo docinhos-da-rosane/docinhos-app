@@ -20,9 +20,8 @@ describe(PublicoLayout.name, () => {
     )
 
     expect(
-      screen.getByRole("heading", { name: "Layout publico" })
+      screen.getByRole("heading", { name: "Docinhos da Rosane" })
     ).toBeInTheDocument()
-
     expect(screen.getByText("Conteúdo público")).toBeInTheDocument()
   })
 })

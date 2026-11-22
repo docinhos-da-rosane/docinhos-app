@@ -44,7 +44,11 @@ export function PublicNavBar() {
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger>
-              <Button variant="outline" size="icon" className="border-0">
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-0 bg-white hover:bg-white"
+              >
                 <Menu
                   aria-hidden="true"
                   size={32}

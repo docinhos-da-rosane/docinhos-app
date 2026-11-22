@@ -1,7 +1,6 @@
 import { Dessert, Menu } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
-import { Button } from "@/shared/components/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -11,16 +10,17 @@ import {
 } from "@/shared/components/ui/sheet"
 
 import { Logo } from "../../logo/Logo"
-import { ROTAS } from "@/shared/constants/routes"
+import { ROTAS, ROTAS_COMPLETAS } from "@/shared/constants/routes"
+import { Button } from "../../ui/button"
 
 const publicLinks = [
   { to: ROTAS.HOME, label: "Início" },
-  { to: "/", label: "Catálogo" },
+  { to: ROTAS_COMPLETAS.CATALOGO, label: "Catálogo" },
   { to: "/", label: "Como encomendar" },
 ]
 
 const linkClassName =
-  "block rounded-sm px-3 py-2 text-sm font-medium " +
+  "block rounded-md px-3 py-2 text-sm font-medium " +
   "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
 
 export function PublicNavBar() {
@@ -28,7 +28,7 @@ export function PublicNavBar() {
     <header className="flex justify-center border-b bg-white p-4">
       <div className="flex w-full items-center justify-between gap-4 lg:max-w-7xl">
         <Logo
-          rota={ROTAS.HOME}
+          rota={ROTAS_COMPLETAS.HOME}
           descricao="Docinhos sob encomenda"
           icon={<Dessert size={22} color="white" />}
         />

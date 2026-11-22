@@ -1,7 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface PaginacaoProps {
-  ariaLabel: string
   paginaAnteriorDesabilitada: boolean
   proximaPaginaDesabilitada: boolean
   onNavegarParaPaginaAnterior: () => void
@@ -9,17 +8,13 @@ interface PaginacaoProps {
 }
 
 export function Paginacao({
-  ariaLabel,
   paginaAnteriorDesabilitada,
   proximaPaginaDesabilitada,
   onNavegarParaPaginaAnterior,
   onNavegarParaProximaPagina,
 }: PaginacaoProps) {
   return (
-    <nav
-      aria-label={ariaLabel}
-      className="flex items-center justify-center gap-4 pt-5"
-    >
+    <nav className="flex items-center justify-center gap-4 pt-5">
       <button
         aria-label="Página anterior"
         className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-40"

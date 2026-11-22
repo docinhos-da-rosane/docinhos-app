@@ -45,7 +45,7 @@ export function CustomButton({
           : props.onClick
       }
       className={cn(
-        "disabled:pointer-events-nonedisabled:cursor-not-allowed flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
+        "disabled:hover flex w-full cursor-pointer items-center justify-center gap-2 rounded-4xl p-4 text-lg font-bold transition-colors disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         variants[variant],
         className
       )}

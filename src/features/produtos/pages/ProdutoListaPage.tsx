@@ -54,7 +54,6 @@ export function ProdutoListaPage() {
         </Painel>
 
         <Paginacao
-          ariaLabel="Paginação de produtos"
           paginaAnteriorDesabilitada={paginaAnteriorDesabilitada}
           proximaPaginaDesabilitada={proximaPaginaDesabilitada}
           onNavegarParaPaginaAnterior={navegarParaPaginaAnterior}

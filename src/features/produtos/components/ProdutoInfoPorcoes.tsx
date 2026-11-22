@@ -1,16 +1,10 @@
 import { Painel } from "@/shared/components"
+import { formatadorPreco } from "@/shared/lib/formatadores"
 import type { PorcaoResponse } from "../models/produto.types"
 
 interface ProdutoInfoPorcoesProps {
   porcoes: PorcaoResponse[]
 }
-
-const formatadorPreco = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-})
 
 export function ProdutoInfoPorcoes({ porcoes }: ProdutoInfoPorcoesProps) {
   return (
